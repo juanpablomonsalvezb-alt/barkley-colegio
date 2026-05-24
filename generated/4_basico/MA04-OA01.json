@@ -1,0 +1,567 @@
+{
+  "oa": {
+    "oa_code": "MA04-OA01",
+    "oa_description": "Representar y describir números del 0 al 10 000: contándolos de 10 en 10, de 100 en 100, leyéndolos, escribiéndolos, identificando el valor posicional de sus dígitos y componiendo y descomponiendo cantidades.",
+    "subject_name": "Matemática",
+    "eje": "Números y Operaciones"
+  },
+  "lesson": {
+    "title": "Números hasta el 10 000",
+    "estimatedMinutes": 18,
+    "difficulty_level": 2,
+    "summary": "Aprendiste a leer, escribir y descomponer números desde 0 hasta 10 000 usando unidades, decenas, centenas y unidades de mil. Cada dígito tiene un valor según su posición.",
+    "videoScript": "[Escena 1 — 0:00 a 0:45] Aparece Gaspar mostrando su colección de stickers. Narrador: '¿Han visto la colección de stickers de Gaspar? ¡Tiene miles! Pero hoy aprenderemos algo importante: cómo leer y escribir números grandes, hasta el 10 000.'\n\n[Escena 2 — 0:45 a 2:00] Animación de cubos agrupándose. Narrador: 'Cuando juntamos 10 unidades, formamos una decena. Cuando juntamos 10 decenas, formamos una centena. Y cuando juntamos 10 centenas... ¡formamos una unidad de mil! Mil cubos formando un cubo grande.'\n\n[Escena 3 — 2:00 a 3:30] Tabla posicional aparece con el número 2 346. Narrador: 'Miremos el número 2 346. El 2 está en las unidades de mil, vale 2 000. El 3 en las centenas, vale 300. El 4 en las decenas, vale 40. Y el 6 en las unidades, vale 6. Sumando: 2 000 + 300 + 40 + 6 = 2 346. Se lee dos mil trescientos cuarenta y seis.'\n\n[Escena 4 — 3:30 a 4:30] 10 grupos de mil cubos. Narrador: 'Y cuando juntamos 10 grupos de 1 000, llegamos al número 10 000. Se llama diez mil. Es el número más grande que aprenderás en este capítulo.'\n\n[Escena 5 — 4:30 a 5:30] Sami mirando un libro de $8 990 en una librería. Narrador: 'Sami quiere comprar un libro que cuesta 8 990 pesos. ¿Cómo descomponemos esa cantidad? 8 000 + 900 + 90. Tiene 8 unidades de mil, 9 centenas y 9 decenas.'\n\n[Escena 6 — 5:30 a 6:30] Recap final con texto en pantalla. Narrador: 'Recuerda: lo importante es la POSICIÓN del dígito. El mismo número 2 vale distinto en 200, en 2 000 o en 20. Ahora intenta tú con el quiz. ¡Vamos!'",
+    "contentHtml": "<h2>Números hasta el 10 000</h2>\n\n<p>En Chile usamos números grandes todos los días: cuando vemos el precio de un libro, contamos las personas en un estadio o leemos cuántos habitantes tiene una comuna. Hoy aprenderás a leer, escribir y descomponer números desde el 0 hasta el 10 000.</p>\n\n<h3>¿Cómo se forman los números grandes?</h3>\n\n<p>Imagina que Gaspar tiene una colección de stickers. Si los agrupa de a 10, forma <strong>decenas</strong>. Si junta 10 decenas, forma una <strong>centena</strong>. Y si junta 10 centenas, forma una <strong>unidad de mil</strong>.</p>\n\n<blockquote>\n<strong>Regla clave:</strong> 10 unidades = 1 decena · 10 decenas = 1 centena · 10 centenas = 1 unidad de mil · 10 unidades de mil = 10 000.\n</blockquote>\n\n<h3>El valor de cada dígito depende de su posición</h3>\n\n<p>Mira el número <strong>2 346</strong>. Cada dígito tiene un valor distinto:</p>\n\n<ul>\n  <li><strong>2</strong> está en las unidades de mil → vale <strong>2 000</strong></li>\n  <li><strong>3</strong> está en las centenas → vale <strong>300</strong></li>\n  <li><strong>4</strong> está en las decenas → vale <strong>40</strong></li>\n  <li><strong>6</strong> está en las unidades → vale <strong>6</strong></li>\n</ul>\n\n<p>Si los sumamos: 2 000 + 300 + 40 + 6 = <strong>2 346</strong>. Se lee <em>dos mil trescientos cuarenta y seis</em>.</p>\n\n<h3>Ejemplo con pesos chilenos</h3>\n\n<p>Sami quiere comprar un libro que cuesta <strong>$8 990</strong>. Para entender ese número lo descomponemos:</p>\n\n<p>8 990 = <strong>8 000</strong> (8 grupos de mil) + <strong>900</strong> (9 grupos de cien) + <strong>90</strong> (9 grupos de diez)</p>\n\n<h3>Y cuando llegamos a 10 000…</h3>\n\n<p>Si juntamos 10 grupos de 1 000 obtenemos el número <strong>10 000</strong>, que se llama <em>diez mil</em>. Es el número más grande que veremos en esta lección. ¡Casi como contar todas las páginas de un libro muy gordo!</p>\n\n<p><strong>Tip:</strong> para escribir números grandes en Chile usamos un espacio entre los miles. Escribimos <code>10 000</code> y no <code>10000</code>. ¡Hace que sea más fácil leer!</p>"
+  },
+  "quiz": {
+    "title": "Quiz: Números hasta el 10 000",
+    "passing_score": 60,
+    "time_limit_seconds": 600,
+    "max_attempts": 3,
+    "questions": [
+      {
+        "question_type": "opcion_multiple",
+        "question_text": "¿Cuántas unidades hay en 1 centena?",
+        "topic_tag": "valor_posicional_basico",
+        "difficulty_level": 1,
+        "points": 1,
+        "options": [
+          {"id": "a", "text": "10"},
+          {"id": "b", "text": "100"},
+          {"id": "c", "text": "1 000"},
+          {"id": "d", "text": "1"}
+        ],
+        "correct_answer": "b",
+        "feedback_correct": "¡Excelente! 1 centena son 100 unidades. 10 decenas forman una centena.",
+        "feedback_incorrect": "Recuerda: centena = 100. Las decenas tienen 10 y las unidades de mil 1 000.",
+        "feedback_hint": "Piensa en la palabra 'centena' — viene de 'cien'.",
+        "feedback_per_option": {
+          "a": "10 son las unidades en una decena, no en una centena.",
+          "b": "¡Correcto! 100 unidades = 1 centena.",
+          "c": "1 000 son las unidades en una unidad de mil.",
+          "d": "1 sola unidad no forma una centena."
+        }
+      },
+      {
+        "question_type": "opcion_multiple",
+        "question_text": "¿Cómo se lee el número 5 720?",
+        "topic_tag": "lectura_numeros",
+        "difficulty_level": 1,
+        "points": 1,
+        "options": [
+          {"id": "a", "text": "Cinco mil siete veinte"},
+          {"id": "b", "text": "Cinco mil setecientos veinte"},
+          {"id": "c", "text": "Quinientos setenta y dos"},
+          {"id": "d", "text": "Cincuenta y siete mil veinte"}
+        ],
+        "correct_answer": "b",
+        "feedback_correct": "¡Perfecto! 5 000 + 700 + 20 = 5 720, se lee cinco mil setecientos veinte.",
+        "feedback_incorrect": "Descompón: 5 unidades de mil + 7 centenas + 2 decenas = cinco mil setecientos veinte.",
+        "feedback_hint": "Lee de izquierda a derecha: primero los miles, después las centenas y decenas.",
+        "feedback_per_option": {
+          "a": "Casi. El 7 está en centenas, no decimos 'siete', decimos 'setecientos'.",
+          "b": "¡Correcto!",
+          "c": "Te faltó leer el 5 que está en las unidades de mil.",
+          "d": "Cuidado: el 5 está en unidades de mil, no en decenas de mil."
+        }
+      },
+      {
+        "question_type": "opcion_multiple",
+        "question_text": "En el número 4 837, ¿cuál es el valor del dígito 8?",
+        "topic_tag": "valor_posicional",
+        "difficulty_level": 1,
+        "points": 1,
+        "options": [
+          {"id": "a", "text": "8"},
+          {"id": "b", "text": "80"},
+          {"id": "c", "text": "800"},
+          {"id": "d", "text": "8 000"}
+        ],
+        "correct_answer": "c",
+        "feedback_correct": "¡Bien! El 8 está en la posición de las centenas, así que vale 800.",
+        "feedback_incorrect": "Mira la posición del 8: está en las centenas (3a posición desde la derecha). Vale 800.",
+        "feedback_hint": "Cuenta las posiciones desde la derecha: unidades, decenas, centenas, unidades de mil.",
+        "feedback_per_option": {
+          "a": "El 8 valdría 8 si estuviera en las unidades, pero está en las centenas.",
+          "b": "80 sería si el 8 estuviera en las decenas.",
+          "c": "¡Correcto! 8 centenas = 800.",
+          "d": "8 000 sería si estuviera en las unidades de mil. Aquí está en centenas."
+        }
+      },
+      {
+        "question_type": "opcion_multiple",
+        "question_text": "¿Cómo se escribe en cifras 'seis mil ciento cuarenta y dos'?",
+        "topic_tag": "escritura_numeros",
+        "difficulty_level": 1,
+        "points": 1,
+        "options": [
+          {"id": "a", "text": "6 142"},
+          {"id": "b", "text": "6 412"},
+          {"id": "c", "text": "60 142"},
+          {"id": "d", "text": "612"}
+        ],
+        "correct_answer": "a",
+        "feedback_correct": "¡Correcto! 6 000 + 100 + 40 + 2 = 6 142.",
+        "feedback_incorrect": "Arma el número parte por parte: seis mil (6 000) + ciento (100) + cuarenta (40) + dos (2).",
+        "feedback_hint": "Suma 6 000 + 100 + 40 + 2.",
+        "feedback_per_option": {
+          "a": "¡Correcto!",
+          "b": "Cuidado con el orden: '142' es ciento cuarenta y dos, no cuatrocientos doce.",
+          "c": "60 142 sería sesenta mil ciento cuarenta y dos. Aquí solo es seis mil.",
+          "d": "Te faltó el 'seis mil'."
+        }
+      },
+      {
+        "question_type": "opcion_multiple",
+        "question_text": "Sami tiene $3 458 en su alcancía. ¿Cuántas centenas tiene en total?",
+        "topic_tag": "descomposicion",
+        "difficulty_level": 2,
+        "points": 1,
+        "options": [
+          {"id": "a", "text": "4 centenas"},
+          {"id": "b", "text": "34 centenas"},
+          {"id": "c", "text": "458 centenas"},
+          {"id": "d", "text": "3 centenas"}
+        ],
+        "correct_answer": "b",
+        "feedback_correct": "¡Excelente! 3 458 = 34 centenas + 58. Las 3 unidades de mil son 30 centenas más las 4 centenas = 34 centenas.",
+        "feedback_incorrect": "Pista: cada unidad de mil vale 10 centenas. 3 000 = 30 centenas, más las 4 centenas que ya tiene = 34.",
+        "feedback_hint": "¿Cuántas centenas hay en 1 000? Diez. Entonces en 3 000 hay 30.",
+        "feedback_per_option": {
+          "a": "4 son las centenas que aparecen 'sueltas', pero las unidades de mil también cuentan como centenas.",
+          "b": "¡Correcto! 30 (de las 3 unidades de mil) + 4 = 34 centenas.",
+          "c": "Eso sería contar las DECENAS, no las centenas.",
+          "d": "3 son las unidades de mil. Cada una equivale a 10 centenas."
+        }
+      },
+      {
+        "question_type": "verdadero_falso",
+        "question_text": "El número 10 000 se forma con 10 grupos de 1 000.",
+        "topic_tag": "diez_mil",
+        "difficulty_level": 1,
+        "points": 1,
+        "options": [
+          {"id": "v", "text": "Verdadero"},
+          {"id": "f", "text": "Falso"}
+        ],
+        "correct_answer": "v",
+        "feedback_correct": "¡Sí! 10 unidades de mil = 10 000 = diez mil.",
+        "feedback_incorrect": "Es verdadero. 1 000 × 10 = 10 000.",
+        "feedback_hint": "Cuenta: 1 000, 2 000, 3 000... hasta 10 000."
+      },
+      {
+        "question_type": "verdadero_falso",
+        "question_text": "En el número 9 056 el dígito 5 vale 500.",
+        "topic_tag": "valor_posicional",
+        "difficulty_level": 2,
+        "points": 1,
+        "options": [
+          {"id": "v", "text": "Verdadero"},
+          {"id": "f", "text": "Falso"}
+        ],
+        "correct_answer": "f",
+        "feedback_correct": "¡Bien! El 5 está en las DECENAS, vale 50, no 500.",
+        "feedback_incorrect": "Mira de nuevo: 9 056. El 5 está en la posición de las decenas (segunda desde la derecha), no en las centenas.",
+        "feedback_hint": "Cuenta posiciones desde la derecha: 6 (unidades), 5 (decenas), 0 (centenas), 9 (unidades de mil)."
+      },
+      {
+        "question_type": "completar",
+        "question_text": "Completa: 7 000 + 400 + 80 + 3 = ___",
+        "topic_tag": "composicion",
+        "difficulty_level": 1,
+        "points": 1,
+        "options": [{"id": "blank", "text": "___"}],
+        "correct_answer": "7483",
+        "feedback_correct": "¡Excelente! Sumando todo: 7 483.",
+        "feedback_incorrect": "Suma con cuidado: 7 000 + 400 = 7 400. 7 400 + 80 = 7 480. 7 480 + 3 = 7 483.",
+        "feedback_hint": "Junta primero los miles con las centenas, luego suma las decenas y unidades."
+      },
+      {
+        "question_type": "completar",
+        "question_text": "Escribe en cifras el número 'cuatro mil ochenta' (sin espacios, ejemplo: 4080)",
+        "topic_tag": "escritura_numeros",
+        "difficulty_level": 2,
+        "points": 1,
+        "options": [{"id": "blank", "text": "___"}],
+        "correct_answer": "4080",
+        "feedback_correct": "¡Correcto! 4 000 + 80 = 4 080. El 0 en centenas indica que no hay centenas.",
+        "feedback_incorrect": "Recuerda: 'cuatro mil' son 4 000 y 'ochenta' son 80. La centena está vacía, escribe 0 ahí.",
+        "feedback_hint": "Cuatro mil = 4 000. Sin centenas. Ochenta = 80. ¿Cómo se ven juntos?"
+      },
+      {
+        "question_type": "opcion_multiple",
+        "question_text": "Si Juan paga un libro de $5 000 con monedas de $500, ¿cuántas monedas entrega?",
+        "topic_tag": "agrupacion",
+        "difficulty_level": 2,
+        "points": 1,
+        "options": [
+          {"id": "a", "text": "5 monedas"},
+          {"id": "b", "text": "10 monedas"},
+          {"id": "c", "text": "50 monedas"},
+          {"id": "d", "text": "100 monedas"}
+        ],
+        "correct_answer": "b",
+        "feedback_correct": "¡Bien! 500 + 500 + ... = 5 000 cuando son 10 monedas. 500 × 10 = 5 000.",
+        "feedback_incorrect": "Piensa cuántas veces cabe 500 en 5 000. 500 × 10 = 5 000, así que son 10 monedas.",
+        "feedback_hint": "¿5 000 ÷ 500 = ?",
+        "feedback_per_option": {
+          "a": "5 monedas de $500 son solo $2 500.",
+          "b": "¡Correcto! 10 monedas × $500 = $5 000.",
+          "c": "50 monedas serían $25 000, demasiado.",
+          "d": "100 monedas serían $50 000."
+        }
+      },
+      {
+        "question_type": "opcion_multiple",
+        "question_text": "¿Cuál de estos números está entre 5 000 y 6 000?",
+        "topic_tag": "orden_y_comparacion",
+        "difficulty_level": 2,
+        "points": 1,
+        "options": [
+          {"id": "a", "text": "4 999"},
+          {"id": "b", "text": "5 432"},
+          {"id": "c", "text": "6 001"},
+          {"id": "d", "text": "7 200"}
+        ],
+        "correct_answer": "b",
+        "feedback_correct": "¡Bien! 5 432 está entre 5 000 y 6 000 porque empieza con 5 y no llega a 6 000.",
+        "feedback_incorrect": "Mira los miles: necesitas un número que empiece con 5 y sea menor a 6 000.",
+        "feedback_hint": "Las unidades de mil deben ser 5.",
+        "feedback_per_option": {
+          "a": "4 999 es menor que 5 000.",
+          "b": "¡Correcto! Está entre 5 000 y 6 000.",
+          "c": "6 001 es mayor que 6 000.",
+          "d": "7 200 está muy por encima de 6 000."
+        }
+      },
+      {
+        "question_type": "opcion_multiple",
+        "question_text": "La comuna de Aysén tiene aproximadamente 9 854 habitantes. ¿Cómo se descompone este número en valor posicional?",
+        "topic_tag": "descomposicion",
+        "difficulty_level": 3,
+        "points": 1,
+        "options": [
+          {"id": "a", "text": "9 000 + 800 + 50 + 4"},
+          {"id": "b", "text": "9 + 8 + 5 + 4"},
+          {"id": "c", "text": "900 + 80 + 50 + 4"},
+          {"id": "d", "text": "9 000 + 80 + 500 + 4"}
+        ],
+        "correct_answer": "a",
+        "feedback_correct": "¡Excelente! Cada dígito según su posición: 9 (mil) + 8 (cien) + 5 (diez) + 4 (uno).",
+        "feedback_incorrect": "Cada dígito vale según su posición. 9 está en miles (9 000), 8 en centenas (800), 5 en decenas (50), 4 en unidades (4).",
+        "feedback_hint": "Lee de izquierda a derecha y asigna miles → centenas → decenas → unidades.",
+        "feedback_per_option": {
+          "a": "¡Correcto!",
+          "b": "Te falta multiplicar cada dígito por su valor posicional.",
+          "c": "Te confundiste: el 9 está en miles, no en centenas.",
+          "d": "Cuidado: el 8 está en centenas (800) y el 5 en decenas (50), no al revés."
+        }
+      },
+      {
+        "question_type": "opcion_multiple",
+        "question_text": "¿Cuál es el número que sigue al contar de 100 en 100: 3 200, 3 300, 3 400, ___?",
+        "topic_tag": "conteo",
+        "difficulty_level": 2,
+        "points": 1,
+        "options": [
+          {"id": "a", "text": "3 401"},
+          {"id": "b", "text": "3 410"},
+          {"id": "c", "text": "3 500"},
+          {"id": "d", "text": "4 400"}
+        ],
+        "correct_answer": "c",
+        "feedback_correct": "¡Bien! Sumas 100 al anterior: 3 400 + 100 = 3 500.",
+        "feedback_incorrect": "Te están pidiendo contar de 100 en 100. Suma 100 al último número: 3 400 + 100 = 3 500.",
+        "feedback_hint": "Cada salto es de 100. ¿Cuánto es 3 400 + 100?",
+        "feedback_per_option": {
+          "a": "Eso es sumar solo 1.",
+          "b": "Eso es sumar solo 10.",
+          "c": "¡Correcto! Saltos de 100.",
+          "d": "Eso sería sumar 1 000."
+        }
+      },
+      {
+        "question_type": "completar",
+        "question_text": "10 000 se forma con ___ grupos de 100. (Solo el número)",
+        "topic_tag": "diez_mil",
+        "difficulty_level": 2,
+        "points": 1,
+        "options": [{"id": "blank", "text": "___"}],
+        "correct_answer": "100",
+        "feedback_correct": "¡Correcto! 100 × 100 = 10 000.",
+        "feedback_incorrect": "Cada centena es 100. ¿Cuántas centenas necesitas para llegar a 10 000? Divide: 10 000 ÷ 100 = 100.",
+        "feedback_hint": "¿Cuántas veces cabe 100 en 10 000?"
+      },
+      {
+        "question_type": "opcion_multiple",
+        "question_text": "Sofía tiene 4 760 estampillas. ¿Cuántos grupos de 10 puede formar con todas?",
+        "topic_tag": "agrupacion",
+        "difficulty_level": 3,
+        "points": 1,
+        "options": [
+          {"id": "a", "text": "47"},
+          {"id": "b", "text": "476"},
+          {"id": "c", "text": "4 760"},
+          {"id": "d", "text": "4 700"}
+        ],
+        "correct_answer": "b",
+        "feedback_correct": "¡Excelente! 4 760 ÷ 10 = 476 grupos de 10 estampillas.",
+        "feedback_incorrect": "Para saber cuántos grupos de 10 caben, divide por 10. 4 760 ÷ 10 = 476.",
+        "feedback_hint": "Cuando divides por 10, 'quitas' el último cero o decimal.",
+        "feedback_per_option": {
+          "a": "47 grupos de 10 son 470 estampillas, te falta.",
+          "b": "¡Correcto! 476 × 10 = 4 760.",
+          "c": "Eso es el total de estampillas, no de grupos.",
+          "d": "Casi, pero 4 700 grupos de 10 serían 47 000 estampillas, demasiado."
+        }
+      },
+      {
+        "question_type": "opcion_multiple",
+        "question_text": "¿Cuál de estas opciones describe correctamente el número 6 008?",
+        "topic_tag": "descomposicion",
+        "difficulty_level": 3,
+        "points": 1,
+        "options": [
+          {"id": "a", "text": "6 unidades de mil y 8 centenas"},
+          {"id": "b", "text": "6 unidades de mil y 8 unidades"},
+          {"id": "c", "text": "60 centenas y 8 unidades"},
+          {"id": "d", "text": "6 centenas y 8 unidades"}
+        ],
+        "correct_answer": "b",
+        "feedback_correct": "¡Correcto! 6 000 + 8 = 6 008. Las centenas y decenas son 0.",
+        "feedback_incorrect": "Lee posición por posición: 6 (miles), 0 (centenas), 0 (decenas), 8 (unidades). Solo hay miles y unidades.",
+        "feedback_hint": "Los ceros indican que NO hay centenas ni decenas.",
+        "feedback_per_option": {
+          "a": "6 unidades de mil y 8 centenas serían 6 800, no 6 008.",
+          "b": "¡Correcto!",
+          "c": "60 centenas son 6 000, suena bien... pero la descripción más simple es '6 unidades de mil'.",
+          "d": "6 centenas serían 600, no 6 000."
+        }
+      },
+      {
+        "question_type": "ordenar",
+        "question_text": "Ordena estos números de menor a mayor.",
+        "topic_tag": "orden_y_comparacion",
+        "difficulty_level": 3,
+        "points": 2,
+        "options": [
+          {"id": "1", "text": "8 020"},
+          {"id": "2", "text": "5 999"},
+          {"id": "3", "text": "8 200"},
+          {"id": "4", "text": "1 010"}
+        ],
+        "correct_answer": ["4", "2", "1", "3"],
+        "feedback_correct": "¡Perfecto! Ordenaste correctamente: 1 010 < 5 999 < 8 020 < 8 200.",
+        "feedback_incorrect": "Compara primero los miles. Si son iguales, compara las centenas. 1 010 es el menor, 8 200 el mayor.",
+        "feedback_hint": "Comienza viendo las unidades de mil. ¿Cuál tiene menos miles?"
+      },
+      {
+        "question_type": "opcion_multiple",
+        "question_text": "El estadio Monumental tiene capacidad para 47 000 personas. ¿Cuál de estos números es MÁS PEQUEÑO que su capacidad?",
+        "topic_tag": "orden_y_comparacion",
+        "difficulty_level": 2,
+        "points": 1,
+        "options": [
+          {"id": "a", "text": "47 001"},
+          {"id": "b", "text": "9 999"},
+          {"id": "c", "text": "50 000"},
+          {"id": "d", "text": "47 100"}
+        ],
+        "correct_answer": "b",
+        "feedback_correct": "¡Bien! 9 999 es mucho menor que 47 000.",
+        "feedback_incorrect": "Recuerda que más miles = número más grande. Busca el que tenga menos.",
+        "feedback_hint": "Compara las unidades de mil.",
+        "feedback_per_option": {
+          "a": "47 001 es 1 más que 47 000, no menos.",
+          "b": "¡Correcto! 9 999 es mucho menor.",
+          "c": "50 000 es mayor que 47 000.",
+          "d": "47 100 es 100 más que 47 000."
+        }
+      },
+      {
+        "question_type": "completar",
+        "question_text": "Descompón 5 790 según el valor posicional. Escribe la respuesta como suma con + entre los términos. Ejemplo: 1000+200+30+4",
+        "topic_tag": "descomposicion",
+        "difficulty_level": 3,
+        "points": 2,
+        "options": [{"id": "blank", "text": "___"}],
+        "correct_answer": "5000+700+90",
+        "feedback_correct": "¡Excelente descomposición! 5 unidades de mil + 7 centenas + 9 decenas = 5 790.",
+        "feedback_incorrect": "Descompón: 5 (miles) = 5 000, 7 (centenas) = 700, 9 (decenas) = 90. No hay unidades sueltas. Suma: 5 000 + 700 + 90.",
+        "feedback_hint": "El 0 final indica que no hay unidades sueltas. Solo necesitas 3 términos."
+      },
+      {
+        "question_type": "opcion_multiple",
+        "question_text": "Si vas contando de 1 000 en 1 000 desde 0, ¿cuántos saltos das para llegar a 10 000?",
+        "topic_tag": "diez_mil",
+        "difficulty_level": 2,
+        "points": 1,
+        "options": [
+          {"id": "a", "text": "5"},
+          {"id": "b", "text": "10"},
+          {"id": "c", "text": "100"},
+          {"id": "d", "text": "1 000"}
+        ],
+        "correct_answer": "b",
+        "feedback_correct": "¡Bien! 10 saltos de 1 000 = 10 000. Es exactamente la definición de diez mil.",
+        "feedback_incorrect": "10 000 ÷ 1 000 = 10. Necesitas dar 10 saltos.",
+        "feedback_hint": "Cuenta: 1 000, 2 000, 3 000... ¿cuántos hasta 10 000?",
+        "feedback_per_option": {
+          "a": "5 saltos de 1 000 dan 5 000, no llegas a 10 000.",
+          "b": "¡Correcto!",
+          "c": "100 saltos serían 100 000, demasiado.",
+          "d": "1 000 saltos sería un millón."
+        }
+      }
+    ]
+  },
+  "reinforcement": {
+    "contentHtml": "<h2>Repasemos: números hasta el 10 000</h2>\n\n<p>¡Sin presión! A muchos les cuesta al principio. Vamos paso a pasito con el zorro Yagán.</p>\n\n<h3>Paso 1 — Los grupos</h3>\n\n<p>Imagina que tienes <strong>monedas de $1</strong>. Si juntas 10 monedas, tienes <strong>10 pesos</strong> = 1 decena de pesos. Si juntas 10 decenas, tienes <strong>100 pesos</strong> = 1 centena de pesos. Y si juntas 10 centenas, tienes <strong>1 000 pesos</strong> = 1 unidad de mil.</p>\n\n<blockquote><strong>Truco fácil:</strong> cada vez que llegas a 10 grupos, formas un grupo más grande.</blockquote>\n\n<h3>Paso 2 — La tabla mágica</h3>\n\n<p>Imagina una tabla con 4 columnas, de derecha a izquierda:</p>\n\n<table>\n  <tr><th>UM</th><th>C</th><th>D</th><th>U</th></tr>\n  <tr><td>2</td><td>3</td><td>4</td><td>6</td></tr>\n</table>\n\n<p><strong>UM</strong> = Unidad de Mil, <strong>C</strong> = Centena, <strong>D</strong> = Decena, <strong>U</strong> = Unidad.</p>\n\n<p>Cada columna multiplica por 10 a su vecina de la derecha. El número 2 346 tiene: 2 UM, 3 C, 4 D, 6 U.</p>\n\n<h3>Paso 3 — Truco para descomponer</h3>\n\n<p>Para el número <strong>4 500</strong>:</p>\n<ol>\n  <li>Mira el primer dígito (4) y agrega tantos ceros como posiciones queden a la derecha. 4 + 3 ceros = <strong>4 000</strong>.</li>\n  <li>Mira el siguiente (5) y haz lo mismo: 5 + 2 ceros = <strong>500</strong>.</li>\n  <li>Suma todo: 4 000 + 500 = <strong>4 500</strong>. ¡Listo!</li>\n</ol>\n\n<p><strong>Recuerda:</strong> los ceros no se ignoran, marcan posiciones vacías. En 3 050 hay 3 UM, 0 C, 5 D, 0 U.</p>",
+    "questions": [
+      {
+        "question_type": "opcion_multiple",
+        "question_text": "¿Cuántas centenas hay en 1 000?",
+        "options": [
+          {"id": "a", "text": "1"},
+          {"id": "b", "text": "10"},
+          {"id": "c", "text": "100"},
+          {"id": "d", "text": "1 000"}
+        ],
+        "correct_answer": "b",
+        "feedback_correct": "¡Sí! 10 centenas × 100 = 1 000.",
+        "feedback_incorrect": "Cada centena vale 100. 1 000 ÷ 100 = 10 centenas.",
+        "difficulty_level": 1
+      },
+      {
+        "question_type": "opcion_multiple",
+        "question_text": "¿Cómo se lee el número 2 000?",
+        "options": [
+          {"id": "a", "text": "Doscientos"},
+          {"id": "b", "text": "Dos mil"},
+          {"id": "c", "text": "Veinte mil"},
+          {"id": "d", "text": "Dos"}
+        ],
+        "correct_answer": "b",
+        "feedback_correct": "¡Perfecto! 2 unidades de mil = dos mil.",
+        "feedback_incorrect": "Mira la posición: el 2 está en las unidades de mil. Se lee 'dos mil'.",
+        "difficulty_level": 1
+      },
+      {
+        "question_type": "opcion_multiple",
+        "question_text": "¿Qué número tiene 5 unidades de mil y 4 decenas?",
+        "options": [
+          {"id": "a", "text": "54"},
+          {"id": "b", "text": "540"},
+          {"id": "c", "text": "5 040"},
+          {"id": "d", "text": "5 400"}
+        ],
+        "correct_answer": "c",
+        "feedback_correct": "¡Bien! 5 000 + 40 = 5 040. Las centenas y unidades son 0.",
+        "feedback_incorrect": "5 UM = 5 000. 4 D = 40. Sin centenas (0) y sin unidades (0). Junta: 5 040.",
+        "difficulty_level": 1
+      },
+      {
+        "question_type": "opcion_multiple",
+        "question_text": "En 7 000, ¿qué representa el 7?",
+        "options": [
+          {"id": "a", "text": "7 unidades"},
+          {"id": "b", "text": "7 centenas"},
+          {"id": "c", "text": "7 unidades de mil"},
+          {"id": "d", "text": "7 decenas"}
+        ],
+        "correct_answer": "c",
+        "feedback_correct": "¡Sí! El 7 está en la posición de las unidades de mil.",
+        "feedback_incorrect": "Cuenta posiciones desde la derecha: 0 (U), 0 (D), 0 (C), 7 (UM).",
+        "difficulty_level": 1
+      },
+      {
+        "question_type": "opcion_multiple",
+        "question_text": "¿Cuánto es 3 000 + 200 + 50?",
+        "options": [
+          {"id": "a", "text": "3 250"},
+          {"id": "b", "text": "3 520"},
+          {"id": "c", "text": "3 205"},
+          {"id": "d", "text": "325"}
+        ],
+        "correct_answer": "a",
+        "feedback_correct": "¡Bien! 3 250.",
+        "feedback_incorrect": "Suma con cuidado: 3 000 + 200 = 3 200. 3 200 + 50 = 3 250.",
+        "difficulty_level": 1
+      },
+      {
+        "question_type": "opcion_multiple",
+        "question_text": "Yagán cuenta de 100 en 100. Va en 800. ¿Cuál es el siguiente número?",
+        "options": [
+          {"id": "a", "text": "801"},
+          {"id": "b", "text": "810"},
+          {"id": "c", "text": "900"},
+          {"id": "d", "text": "1 000"}
+        ],
+        "correct_answer": "c",
+        "feedback_correct": "¡Bien! 800 + 100 = 900.",
+        "feedback_incorrect": "Le suma 100. 800 + 100 = 900.",
+        "difficulty_level": 1
+      },
+      {
+        "question_type": "opcion_multiple",
+        "question_text": "Si tienes 10 grupos de 100 cubos, ¿cuántos cubos tienes en total?",
+        "options": [
+          {"id": "a", "text": "100"},
+          {"id": "b", "text": "1 000"},
+          {"id": "c", "text": "10 000"},
+          {"id": "d", "text": "10"}
+        ],
+        "correct_answer": "b",
+        "feedback_correct": "¡Correcto! 10 × 100 = 1 000.",
+        "feedback_incorrect": "10 centenas = 1 unidad de mil = 1 000.",
+        "difficulty_level": 1
+      },
+      {
+        "question_type": "opcion_multiple",
+        "question_text": "¿Cuál es el número MÁS GRANDE?",
+        "options": [
+          {"id": "a", "text": "999"},
+          {"id": "b", "text": "1 000"},
+          {"id": "c", "text": "100"},
+          {"id": "d", "text": "10"}
+        ],
+        "correct_answer": "b",
+        "feedback_correct": "¡Sí! 1 000 tiene 4 dígitos, los demás tienen menos.",
+        "feedback_incorrect": "Mira la cantidad de dígitos. Más dígitos = número más grande (cuando empieza con 1 o más).",
+        "difficulty_level": 1
+      },
+      {
+        "question_type": "opcion_multiple",
+        "question_text": "10 000 se llama...",
+        "options": [
+          {"id": "a", "text": "Cien mil"},
+          {"id": "b", "text": "Mil"},
+          {"id": "c", "text": "Diez mil"},
+          {"id": "d", "text": "Diez"}
+        ],
+        "correct_answer": "c",
+        "feedback_correct": "¡Perfecto! Diez mil.",
+        "feedback_incorrect": "Se lee 'diez mil'. Son 10 unidades de mil.",
+        "difficulty_level": 1
+      },
+      {
+        "question_type": "opcion_multiple",
+        "question_text": "¿Cuántas unidades de mil tiene el número 6 250?",
+        "options": [
+          {"id": "a", "text": "6"},
+          {"id": "b", "text": "62"},
+          {"id": "c", "text": "625"},
+          {"id": "d", "text": "0"}
+        ],
+        "correct_answer": "a",
+        "feedback_correct": "¡Bien! El primer dígito (6) está en las unidades de mil.",
+        "feedback_incorrect": "El primer dígito de un número de 4 cifras es las unidades de mil. Aquí es 6.",
+        "difficulty_level": 1
+      }
+    ]
+  },
+  "challenge": {
+    "contentHtml": "<h2>Desafío: números más allá del 10 000</h2>\n\n<p>¡Bien hecho! Dominas los números hasta 10 000. Pero la matemática no se detiene ahí. Veamos cómo los chilenos usamos números MUCHO más grandes todos los días.</p>\n\n<h3>El sistema decimal sigue creciendo</h3>\n\n<p>Igual que 10 unidades forman 1 decena, y 10 centenas forman 1 unidad de mil, podemos seguir:</p>\n\n<ul>\n  <li><strong>10 unidades de mil = 10 000</strong> (diez mil)</li>\n  <li><strong>100 unidades de mil = 100 000</strong> (cien mil)</li>\n  <li><strong>1 000 unidades de mil = 1 000 000</strong> (un millón)</li>\n</ul>\n\n<h3>Pensamiento posicional avanzado</h3>\n\n<p>En el número <strong>437 218</strong>, los dígitos tienen estos valores:</p>\n\n<table>\n  <tr><th>CMM</th><th>DM</th><th>UM</th><th>C</th><th>D</th><th>U</th></tr>\n  <tr><td>4</td><td>3</td><td>7</td><td>2</td><td>1</td><td>8</td></tr>\n</table>\n\n<p>Donde <strong>CMM</strong> = Centena de Mil, <strong>DM</strong> = Decena de Mil. Se lee: <em>cuatrocientos treinta y siete mil doscientos dieciocho</em>.</p>\n\n<h3>Aplicación real chilena</h3>\n\n<p>La población de la comuna de Puente Alto es aproximadamente <strong>568 000 personas</strong>. La del Estadio Nacional cuando está lleno: <strong>48 600</strong>. El sueldo mínimo en Chile 2026: <strong>$510 000</strong>.</p>\n\n<p>¿Notas que todos estos números siguen la MISMA lógica? Solo agregamos más posiciones a la izquierda.</p>\n\n<h3>Pista para olimpiadas matemáticas</h3>\n\n<p>Un número 'capicúa' (palíndromo) se lee igual de izquierda a derecha que de derecha a izquierda. Ejemplos: 1 221, 5 445, 9 889. ¿Cuántos números capicúas hay entre 1 000 y 10 000? Te dejo el desafío.</p>",
+    "projectDescription": "PROYECTO: Censo de tu casa o barrio\n\nObjetivo: aplicar conteo y descomposición de números grandes a un caso real.\n\nMateriales: papel, lápiz, calculadora opcional, cámara de celular opcional.\n\nPasos:\n1. Cuenta cuántas personas viven en tu casa.\n2. Pregunta (a vecinos o familiares en otras casas) cuántas personas viven en al menos 10 casas más de tu barrio o calle.\n3. Suma todos los habitantes. Si llegas a más de 1 000, ¡felicidades! Si no, multiplica por 10 para estimar tu cuadra completa.\n4. Investiga online (con un adulto) cuántas personas viven en tu COMUNA según el último Censo. Anota el número.\n5. Descompón ese número de tu comuna según valor posicional. Ejemplo: si son 145 000, escribe 100 000 + 40 000 + 5 000.\n6. Crea un cartel con el número de tu comuna escrito en cifras, en letras, y descompuesto. Decóralo.\n\nEntregable: foto del cartel + tabla con el censo de tu cuadra estimado.\n\nTiempo estimado: 2 horas (puedes hacerlo en varios días).\n\nCriterios de evaluación:\n- Conteo correcto de personas en tu casa.\n- Estimación razonable de cuadra (mínimo 10 casas consultadas).\n- Descomposición posicional correcta del número de la comuna.\n- Cartel claro y bien presentado."
+  }
+}

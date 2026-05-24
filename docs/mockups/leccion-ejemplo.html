@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Barkley — Suma de Fracciones (5° Básico)</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; }
+  .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+  .video-placeholder {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    background-image: radial-gradient(circle at 30% 30%, rgba(102,126,234,0.4) 0%, transparent 50%);
+  }
+  .step-active { background: #f0fdf4; border-color: #16a34a; }
+  .step-done { background: #f0f9ff; border-color: #0284c7; opacity: 0.7; }
+  .pulse-dot { animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+</style>
+</head>
+<body class="bg-slate-50">
+
+<!-- TOP BAR — siempre visible -->
+<header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+    <div class="flex items-center gap-4">
+      <div class="w-9 h-9 gradient-bg rounded-lg flex items-center justify-center text-white font-bold">B</div>
+      <nav class="text-sm text-slate-500 flex items-center gap-2">
+        <a href="#" class="hover:text-slate-900">Matemática 5° básico</a>
+        <span>›</span>
+        <a href="#" class="hover:text-slate-900">Unidad 2: Fracciones</a>
+        <span>›</span>
+        <span class="text-slate-900 font-medium">Suma de fracciones</span>
+      </nav>
+    </div>
+    <div class="flex items-center gap-6">
+      <!-- Racha -->
+      <div class="flex items-center gap-1.5 bg-orange-50 px-3 py-1.5 rounded-full">
+        <span class="text-lg">🔥</span>
+        <span class="font-bold text-orange-600">7</span>
+      </div>
+      <!-- XP -->
+      <div class="flex items-center gap-1.5 bg-yellow-50 px-3 py-1.5 rounded-full">
+        <span class="text-lg">⚡</span>
+        <span class="font-bold text-yellow-700">340 XP</span>
+      </div>
+      <!-- Avatar -->
+      <div class="w-9 h-9 bg-gradient-to-br from-pink-400 to-purple-500 rounded-full"></div>
+    </div>
+  </div>
+  <!-- Progress bar -->
+  <div class="h-1 bg-slate-100">
+    <div class="h-full gradient-bg" style="width: 35%"></div>
+  </div>
+</header>
+
+<div class="max-w-7xl mx-auto px-6 py-8 grid grid-cols-12 gap-6">
+
+  <!-- SIDEBAR — pasos de la lección -->
+  <aside class="col-span-3 hidden lg:block">
+    <div class="sticky top-24">
+      <h3 class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-3">Esta lección</h3>
+      <div class="space-y-2">
+        <div class="step-done flex items-center gap-3 p-3 rounded-lg border-2 border-l-4 cursor-pointer">
+          <span class="w-6 h-6 bg-blue-500 text-white rounded-full flex items-center justify-center text-xs">✓</span>
+          <div>
+            <p class="text-sm font-medium">1. Introducción</p>
+            <p class="text-xs text-slate-500">2 min</p>
+          </div>
+        </div>
+        <div class="step-active flex items-center gap-3 p-3 rounded-lg border-2 border-l-4 cursor-pointer">
+          <span class="w-6 h-6 bg-green-600 text-white rounded-full flex items-center justify-center text-xs pulse-dot">▶</span>
+          <div>
+            <p class="text-sm font-medium">2. Video explicación</p>
+            <p class="text-xs text-slate-500">6 min</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-3 p-3 rounded-lg border-2 border-slate-200">
+          <span class="w-6 h-6 bg-slate-200 text-slate-500 rounded-full flex items-center justify-center text-xs">3</span>
+          <div>
+            <p class="text-sm font-medium text-slate-600">Ejemplos paso a paso</p>
+            <p class="text-xs text-slate-500">4 min</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-3 p-3 rounded-lg border-2 border-slate-200">
+          <span class="w-6 h-6 bg-slate-200 text-slate-500 rounded-full flex items-center justify-center text-xs">4</span>
+          <div>
+            <p class="text-sm font-medium text-slate-600">Práctica guiada</p>
+            <p class="text-xs text-slate-500">5 min</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-3 p-3 rounded-lg border-2 border-slate-200">
+          <span class="w-6 h-6 bg-slate-200 text-slate-500 rounded-full flex items-center justify-center text-xs">5</span>
+          <div>
+            <p class="text-sm font-medium text-slate-600">Quiz (10 preguntas)</p>
+            <p class="text-xs text-slate-500">8 min</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-6 p-4 bg-purple-50 rounded-lg border border-purple-200">
+        <p class="text-xs text-purple-600 font-semibold mb-1">RECOMPENSA AL TERMINAR</p>
+        <p class="text-sm text-purple-900">⚡ +25 XP · 🏅 Badge "Fracciones"</p>
+      </div>
+    </div>
+  </aside>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="col-span-12 lg:col-span-9 space-y-6">
+
+    <!-- META lección -->
+    <div class="flex items-center gap-3 text-sm">
+      <span class="px-2 py-1 bg-blue-100 text-blue-700 rounded">OA 06</span>
+      <span class="px-2 py-1 bg-green-100 text-green-700 rounded">Dificultad ⚡⚡⚡☆☆</span>
+      <span class="text-slate-500">≈ 25 minutos total</span>
+    </div>
+
+    <!-- BLOQUE 1: TÍTULO + HOOK -->
+    <section class="bg-white rounded-2xl p-8 shadow-sm border border-slate-200">
+      <h1 class="text-3xl font-bold text-slate-900 mb-3">Suma de fracciones con igual denominador</h1>
+      <p class="text-lg text-slate-600 leading-relaxed">
+        Al terminar esta lección sabrás sumar fracciones cuando tienen el <strong>mismo denominador</strong>,
+        usar representaciones visuales para entender el resultado, y resolver problemas cotidianos
+        como repartir una pizza o calcular distancias.
+      </p>
+
+      <div class="mt-6 p-4 bg-amber-50 rounded-xl border border-amber-200 flex gap-3">
+        <span class="text-2xl">💡</span>
+        <div>
+          <p class="font-semibold text-amber-900 mb-1">Antes de empezar</p>
+          <p class="text-sm text-amber-800">
+            Recuerda: una fracción tiene <strong>numerador</strong> (arriba) y <strong>denominador</strong> (abajo).
+            Si no recuerdas qué es una fracción, <a href="#" class="underline">repasa la lección anterior</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOQUE 2: VIDEO -->
+    <section class="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200">
+      <div class="aspect-video video-placeholder flex items-center justify-center relative">
+        <button class="w-20 h-20 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-2xl transition-transform hover:scale-110">
+          <svg class="w-8 h-8 text-slate-900 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <div class="absolute bottom-4 left-4 right-4 bg-black/50 backdrop-blur rounded-lg p-3 flex items-center gap-3">
+          <div class="flex-1 h-1 bg-white/30 rounded-full">
+            <div class="h-full bg-white rounded-full" style="width: 0%"></div>
+          </div>
+          <span class="text-white text-sm font-medium">0:00 / 6:12</span>
+          <button class="text-white text-sm">CC</button>
+          <button class="text-white text-sm">1x</button>
+        </div>
+      </div>
+      <div class="p-6 bg-slate-50">
+        <div class="flex items-center justify-between">
+          <p class="text-sm text-slate-600">📌 Marca tu progreso a medida que avanzas</p>
+          <button class="text-sm text-blue-600 font-medium hover:underline">Ver transcripción ↓</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOQUE 3: TEXTO EXPLICATIVO -->
+    <section class="bg-white rounded-2xl p-8 shadow-sm border border-slate-200">
+      <h2 class="text-2xl font-bold text-slate-900 mb-4">📖 Cómo funciona</h2>
+
+      <div class="prose prose-slate max-w-none">
+        <p class="text-slate-700 leading-relaxed">
+          Cuando dos fracciones tienen el <strong>mismo denominador</strong>, las puedes sumar
+          de manera muy simple: solo sumas los numeradores y dejas el denominador igual.
+        </p>
+
+        <!-- Fórmula visual destacada -->
+        <div class="my-6 p-6 bg-blue-50 rounded-xl border-l-4 border-blue-500">
+          <p class="text-sm text-blue-600 font-semibold mb-2">REGLA</p>
+          <p class="text-2xl text-center font-mono text-slate-900">
+            <span class="text-blue-700">a</span>/<span class="text-purple-700">c</span> +
+            <span class="text-blue-700">b</span>/<span class="text-purple-700">c</span> =
+            (<span class="text-blue-700">a + b</span>)/<span class="text-purple-700">c</span>
+          </p>
+        </div>
+
+        <h3 class="text-lg font-semibold text-slate-900 mt-6 mb-3">Ejemplo con pizza 🍕</h3>
+        <p class="text-slate-700">
+          Imagina una pizza dividida en 8 trozos iguales. Comes 2 trozos en el almuerzo
+          y 3 trozos en la once. ¿Cuánta pizza comiste en total?
+        </p>
+
+        <!-- Visualización -->
+        <div class="my-4 flex gap-4 items-center justify-center text-center">
+          <div>
+            <div class="text-5xl mb-1">🍕</div>
+            <p class="text-sm font-mono">2/8</p>
+          </div>
+          <div class="text-3xl text-slate-400">+</div>
+          <div>
+            <div class="text-5xl mb-1">🍕</div>
+            <p class="text-sm font-mono">3/8</p>
+          </div>
+          <div class="text-3xl text-slate-400">=</div>
+          <div>
+            <div class="text-5xl mb-1">🍕</div>
+            <p class="text-sm font-mono font-bold text-green-600">5/8</p>
+          </div>
+        </div>
+
+        <p class="text-slate-700">
+          Sumamos los numeradores: <code class="bg-slate-100 px-2 py-0.5 rounded">2 + 3 = 5</code>.
+          El denominador <strong>no cambia</strong> porque los trozos siguen siendo del mismo tamaño.
+        </p>
+      </div>
+    </section>
+
+    <!-- BLOQUE 4: PRÁCTICA INTERACTIVA (mini-quiz embedded) -->
+    <section class="bg-white rounded-2xl p-8 shadow-sm border-2 border-green-200">
+      <div class="flex items-center gap-2 mb-2">
+        <span class="px-2 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded">PRÁCTICA RÁPIDA</span>
+        <span class="text-sm text-slate-500">Sin nota — solo para practicar</span>
+      </div>
+      <h3 class="text-xl font-bold text-slate-900 mb-4">¿Cuánto es 4/9 + 3/9?</h3>
+
+      <div class="grid grid-cols-2 gap-3">
+        <button class="p-4 border-2 border-slate-200 rounded-xl hover:border-blue-500 hover:bg-blue-50 transition text-left font-medium">
+          A) 7/18
+        </button>
+        <button class="p-4 border-2 border-green-500 bg-green-50 rounded-xl text-left font-medium">
+          B) 7/9 ✓
+        </button>
+        <button class="p-4 border-2 border-slate-200 rounded-xl hover:border-blue-500 hover:bg-blue-50 transition text-left font-medium">
+          C) 12/9
+        </button>
+        <button class="p-4 border-2 border-slate-200 rounded-xl hover:border-blue-500 hover:bg-blue-50 transition text-left font-medium">
+          D) 1/9
+        </button>
+      </div>
+
+      <div class="mt-4 p-4 bg-green-50 rounded-lg border border-green-200">
+        <p class="text-sm text-green-900">
+          <strong>¡Correcto!</strong> Sumaste 4 + 3 = 7 y mantuviste el denominador 9. Esa es la regla 👏
+        </p>
+      </div>
+    </section>
+
+    <!-- BLOQUE 5: PDF + RECURSOS -->
+    <section class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+      <h3 class="font-semibold text-slate-900 mb-3">📎 Material descargable</h3>
+      <div class="flex flex-wrap gap-3">
+        <a href="#" class="flex items-center gap-3 p-3 border border-slate-200 rounded-lg hover:bg-slate-50">
+          <span class="text-2xl">📄</span>
+          <div>
+            <p class="text-sm font-medium">Resumen PDF</p>
+            <p class="text-xs text-slate-500">2 páginas · 180 KB</p>
+          </div>
+        </a>
+        <a href="#" class="flex items-center gap-3 p-3 border border-slate-200 rounded-lg hover:bg-slate-50">
+          <span class="text-2xl">📊</span>
+          <div>
+            <p class="text-sm font-medium">Ejercicios extra</p>
+            <p class="text-xs text-slate-500">15 ejercicios resueltos</p>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- BLOQUE 6: CTA QUIZ -->
+    <section class="gradient-bg rounded-2xl p-8 text-white text-center">
+      <h2 class="text-2xl font-bold mb-2">¿Listo para el quiz?</h2>
+      <p class="text-white/90 mb-6">10 preguntas · 8 minutos · 3 intentos disponibles</p>
+      <div class="flex items-center justify-center gap-4 text-sm mb-6">
+        <span class="px-3 py-1 bg-white/20 rounded-full">⚡ +25 XP por completar</span>
+        <span class="px-3 py-1 bg-white/20 rounded-full">🎯 Aprueba con 60%</span>
+      </div>
+      <button class="bg-white text-purple-700 px-8 py-3 rounded-xl font-bold text-lg hover:bg-yellow-100 transition shadow-lg">
+        Comenzar Quiz →
+      </button>
+      <p class="text-xs text-white/70 mt-4">Tu puntaje decide la siguiente lección (refuerzo · normal · desafío)</p>
+    </section>
+
+  </main>
+</div>
+
+</body>
+</html>
