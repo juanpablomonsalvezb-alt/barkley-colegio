@@ -29,6 +29,7 @@ import { Separator } from '@/components/ui/separator'
 
 import AudioPlayer from './audio-player'
 import QuizCarousel, { type QuizQuestion } from './quiz-carousel'
+import PrintWorksheet from './print-worksheet'
 import VideoPlayer, { VideoPlaceholder } from './video-player'
 import FlashcardsDeck from './flashcards-deck'
 import MindMapViewer, { type MindMapNode } from './mind-map-viewer'
@@ -287,6 +288,7 @@ export default async function PreviewPage({ params }: PageProps) {
     { id: 'video', label: 'Video', icon: '🎬', available: !!videoUrl },
     { id: 'lesson', label: 'Lección', icon: '📖', available: !!lesson.content_html },
     { id: 'quiz', label: 'Quiz', icon: '📝', available: questions.length > 0 },
+    { id: 'worksheet', label: 'Imprimir', icon: '🖨️', available: questions.length > 0 },
     { id: 'slides', label: 'Slides', icon: '🎴', available: !!slideUrl },
     { id: 'mindmap', label: 'Mapa mental', icon: '🕸️', available: !!mindMap },
     { id: 'flashcards', label: 'Flashcards', icon: '🧠', available: !!flashcards },
@@ -496,6 +498,24 @@ export default async function PreviewPage({ params }: PageProps) {
                   })) as QuizQuestion[]}
                 />
               )}
+            </SectionShell>
+
+            {/* PRINT WORKSHEET */}
+            <SectionShell
+              id="worksheet"
+              icon={FileQuestion}
+              emoji="🖨️"
+              eyebrow="Ejercicios"
+              title="Hoja para imprimir + solucionario"
+              description="Imprime los ejercicios para trabajar en papel. El profesor o apoderado puede ver el solucionario con un click."
+            >
+              <PrintWorksheet
+                questions={questions as any}
+                unitTitle={unit?.title ?? lesson.title}
+                oaCode={oaCode.toUpperCase()}
+                gradeLabel={course?.grade_level === '4_basico' ? '4° Básico' : (course?.grade_level ?? '')}
+                subjectName={subject?.name ?? ''}
+              />
             </SectionShell>
 
             {/* SLIDES */}

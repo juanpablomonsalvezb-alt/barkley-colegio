@@ -340,3 +340,38 @@
 .dark * {
   scrollbar-color: oklch(0.4 0 0 / 40%) transparent;
 }
+/* ============================================================
+   PRINT STYLES — Barkley worksheets
+   Solo la .worksheet se imprime, lo demás se oculta
+============================================================ */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .worksheet, .worksheet * {
+    visibility: visible;
+  }
+  .worksheet {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    padding: 20mm;
+    border: none !important;
+    box-shadow: none !important;
+    background: white !important;
+    color: black !important;
+    font-size: 11pt;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .break-inside-avoid {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  @page {
+    margin: 12mm;
+    size: letter;
+  }
+}
