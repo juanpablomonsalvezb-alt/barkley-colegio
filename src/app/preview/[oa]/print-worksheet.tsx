@@ -237,7 +237,7 @@ export default function PrintWorksheet({
 
         {/* Footer impreso */}
         <div className="mt-10 pt-4 border-t border-[#EFE7D5] flex items-center justify-between text-xs text-[#8A7F75]">
-          <span>🐶 Barkley · barkley.cl</span>
+          <span>Barkley · barkley.cl</span>
           <span className="font-mono">{oaCode} · {questions.length} ejercicios</span>
         </div>
       </div>

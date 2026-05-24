@@ -15,7 +15,6 @@ import {
   Video as VideoIcon,
   FileQuestion,
   Presentation,
-  Network,
   Layers,
   ScrollText,
   RefreshCcw,
@@ -31,7 +30,6 @@ import AudioPlayer from './audio-player'
 import QuizCarousel, { type QuizQuestion } from './quiz-carousel'
 import VideoPlayer, { VideoPlaceholder } from './video-player'
 import FlashcardsDeck from './flashcards-deck'
-import MindMapViewer, { type MindMapNode } from './mind-map-viewer'
 import SlidesViewer from './slides-viewer'
 import SectionNav, { type NavSection } from './section-nav'
 import ShareButton from './share-button'
@@ -133,11 +131,9 @@ function SectionShell({
 function EmptyState({ message = 'Estamos preparando esto…', hint = 'Vuelve en unos minutos' }: { message?: string; hint?: string }) {
   return (
     <div className="flex flex-col items-center gap-4 rounded-3xl border-2 border-dashed border-[#EFE7D5] bg-[#FDFBF7] px-6 py-14 text-center">
-      <div className="relative flex h-16 w-16 items-center justify-center">
+      <div className="relative flex h-14 w-14 items-center justify-center">
         <div className="absolute inset-0 animate-ping rounded-full bg-[#F97316]/15" />
-        <div className="relative flex h-14 w-14 items-center justify-center rounded-full bg-[#FFE4D1] text-3xl animate-float">
-          🐶
-        </div>
+        <Sparkles className="relative h-6 w-6 text-[#F97316]" />
       </div>
       <div>
         <div className="text-base font-medium text-[#2C2826]">{message}</div>
@@ -231,27 +227,6 @@ export default async function PreviewPage({ params }: PageProps) {
   const videoUrl: string | null = unit?.video_overview_url ?? null
   const slideUrl: string | null = unit?.slide_deck_url ?? null
   const infographicUrl: string | null = unit?.infographic_url ?? null
-  // ---- Mind map: NotebookLM devuelve {name, children:[{name, children}]} (recursivo).
-  //      Nuestro viewer espera {label, children}. Mapeamos name->label.
-  function normalizeMindMap(raw: unknown): MindMapNode | null {
-    if (!raw || typeof raw !== 'object') return null
-    const r = raw as Record<string, any>
-    // Si ya viene con label, asumimos formato correcto.
-    const label = typeof r.label === 'string' ? r.label : typeof r.name === 'string' ? r.name : null
-    if (!label) {
-      // A veces viene envuelto como {root: {...}} o {tree: {...}}
-      if (r.root) return normalizeMindMap(r.root)
-      if (r.tree) return normalizeMindMap(r.tree)
-      return null
-    }
-    const children = Array.isArray(r.children)
-      ? (r.children.map(normalizeMindMap).filter(Boolean) as MindMapNode[])
-      : []
-    const description = typeof r.description === 'string' ? r.description : undefined
-    return { label, description, children }
-  }
-  const mindMap: MindMapNode | null = normalizeMindMap(unit?.mind_map_json)
-
   // ---- Flashcards: NotebookLM devuelve {cards: [{front, back}]} pero a veces
   //      llega como array directo o {flashcards: [...]}. Normalizamos.
   function normalizeFlashcards(raw: unknown): Flashcard[] | null {
@@ -289,7 +264,6 @@ export default async function PreviewPage({ params }: PageProps) {
     { id: 'quiz', label: 'Quiz', icon: '📝', available: questions.length > 0 },
     { id: 'worksheet', label: 'Imprimir', icon: '🖨️', available: questions.length > 0 },
     { id: 'slides', label: 'Slides', icon: '🎴', available: !!slideUrl },
-    { id: 'mindmap', label: 'Mapa mental', icon: '🕸️', available: !!mindMap },
     { id: 'flashcards', label: 'Flashcards', icon: '🧠', available: !!flashcards },
     { id: 'guide', label: 'Guía de estudio', icon: '📚', available: !!studyGuide },
     { id: 'reinforcement', label: 'Refuerzo', icon: '🔁', available: !!lesson.reinforcement_content_html },
@@ -324,19 +298,11 @@ export default async function PreviewPage({ params }: PageProps) {
           style={{ background: 'radial-gradient(circle, #FEF3C7 0%, transparent 70%)' }}
         />
 
-        {/* Doodle: el zorro Barkley en la esquina */}
-        <div
-          aria-hidden
-          className="absolute top-6 right-6 md:top-10 md:right-10 text-5xl md:text-7xl select-none rotate-[8deg] animate-float opacity-90"
-        >
-          🦊
-        </div>
-
         <div className="relative mx-auto max-w-6xl px-4 md:px-8 pt-10 pb-14 md:pt-16 md:pb-20">
           {/* Top bar */}
           <div className="flex flex-wrap items-center gap-2.5 text-[13px]">
             <div className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1 font-semibold text-[#C2410C] ring-1 ring-[#FFE4D1] shadow-sm">
-              <span className="text-base">🐶</span> Barkley
+              Barkley
             </div>
             {subject && (
               <span
@@ -568,18 +534,6 @@ export default async function PreviewPage({ params }: PageProps) {
               {slideUrl ? <SlidesViewer url={slideUrl} /> : <EmptyState message="Slides en generación…" />}
             </SectionShell>
 
-            {/* MIND MAP */}
-            <SectionShell
-              id="mindmap"
-              icon={Network}
-              emoji="🕸️"
-              eyebrow="Estructura conceptual"
-              title="Mapa mental"
-              description="Explora cómo se conectan los conceptos de esta unidad. Haz click para expandir cada rama."
-            >
-              {mindMap ? <MindMapViewer root={mindMap} /> : <EmptyState message="Mapa mental en generación…" />}
-            </SectionShell>
-
             {/* FLASHCARDS */}
             <SectionShell
               id="flashcards"
@@ -660,8 +614,8 @@ export default async function PreviewPage({ params }: PageProps) {
         <footer className="mt-16 md:mt-24 border-t border-[#EFE7D5] pt-8">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div className="flex items-center gap-3">
-              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#FFE4D1] text-xl ring-1 ring-[#FFCAB8]">
-                🐶
+              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#FFE4D1] text-sm font-bold text-[#C2410C] ring-1 ring-[#FFCAB8]">
+                B
               </div>
               <div>
                 <div className="font-heading text-base font-semibold text-[#2C2826]">Barkley</div>

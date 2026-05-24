@@ -94,7 +94,7 @@ export default function WorksheetView({
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
             <div>
               <p className="text-xs font-semibold uppercase tracking-widest text-[#8A7F75]">
-                🐶 Barkley · {subjectName} · {gradeLabel}
+                Barkley · {subjectName} · {gradeLabel}
               </p>
               <h1 className="font-heading text-2xl md:text-3xl font-bold text-[#2C2826] mt-1 leading-tight">
                 {mode === 'solucionario' && '🔑 '}{unitTitle}
@@ -240,7 +240,7 @@ export default function WorksheetView({
         </ol>
 
         <footer className="mt-12 pt-4 border-t border-[#EFE7D5] flex items-center justify-between text-xs text-[#8A7F75]">
-          <span>🐶 Barkley · barkley.cl</span>
+          <span>Barkley · barkley.cl</span>
           <span className="font-mono">
             {oaCode} · {questions.length} ejercicios · {mode === 'solucionario' ? 'Solucionario' : 'Ejercicios'}
           </span>
