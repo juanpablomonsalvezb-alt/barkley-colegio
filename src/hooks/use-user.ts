@@ -2,8 +2,10 @@
 
 import { useEffect, useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
-import type { UserRole } from '@/lib/supabase/database.types'
+import type { Database } from '@/lib/supabase/database.types'
 import type { User } from '@supabase/supabase-js'
+
+type UserRole = Database['public']['Enums']['user_role']
 
 interface Profile {
   id: string

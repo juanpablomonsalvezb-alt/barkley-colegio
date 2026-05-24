@@ -3,7 +3,9 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
-import type { UserRole } from '@/lib/supabase/database.types'
+import type { Database } from '@/lib/supabase/database.types'
+
+type UserRole = Database['public']['Enums']['user_role']
 
 interface RoleGuardProps {
   allowedRoles: UserRole[]
