@@ -29,7 +29,6 @@ import { Separator } from '@/components/ui/separator'
 
 import AudioPlayer from './audio-player'
 import QuizCarousel, { type QuizQuestion } from './quiz-carousel'
-import PrintWorksheet from './print-worksheet'
 import VideoPlayer, { VideoPlaceholder } from './video-player'
 import FlashcardsDeck from './flashcards-deck'
 import MindMapViewer, { type MindMapNode } from './mind-map-viewer'
@@ -500,22 +499,61 @@ export default async function PreviewPage({ params }: PageProps) {
               )}
             </SectionShell>
 
-            {/* PRINT WORKSHEET */}
+            {/* PRINT WORKSHEET — solo botones, las hojas son URLs separadas */}
             <SectionShell
               id="worksheet"
               icon={FileQuestion}
               emoji="🖨️"
-              eyebrow="Ejercicios"
-              title="Hoja para imprimir + solucionario"
-              description="Imprime los ejercicios para trabajar en papel. El profesor o apoderado puede ver el solucionario con un click."
+              eyebrow="Material descargable"
+              title="Ejercicios para imprimir"
+              description="Hojas listas para imprimir o guardar como PDF. Una para el alumno, otra con el solucionario para el profesor o apoderado."
             >
-              <PrintWorksheet
-                questions={questions as any}
-                unitTitle={unit?.title ?? lesson.title}
-                oaCode={oaCode.toUpperCase()}
-                gradeLabel={course?.grade_level === '4_basico' ? '4° Básico' : (course?.grade_level ?? '')}
-                subjectName={subject?.name ?? ''}
-              />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <a
+                  href={`/preview/${oaCode.toLowerCase()}/imprimir`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex flex-col gap-3 rounded-2xl border-2 border-[#FFE4D1] bg-white p-6 hover:border-[#F97316] hover:bg-[#FFF7ED] transition shadow-sm hover:shadow-md"
+                >
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#FFE4D1] text-2xl">
+                    📄
+                  </div>
+                  <div>
+                    <h3 className="font-heading text-lg font-bold text-[#2C2826]">Hoja del alumno</h3>
+                    <p className="mt-1 text-sm text-[#5A4F47]">
+                      {questions.length} ejercicios con espacio para responder. Sin respuestas visibles.
+                    </p>
+                  </div>
+                  <span className="mt-auto inline-flex items-center gap-2 text-sm font-semibold text-[#C2410C] group-hover:gap-3 transition-all">
+                    Abrir e imprimir →
+                  </span>
+                </a>
+
+                <a
+                  href={`/preview/${oaCode.toLowerCase()}/solucionario`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex flex-col gap-3 rounded-2xl border-2 border-[#D1FAE5] bg-white p-6 hover:border-[#10B981] hover:bg-[#F0FDF4] transition shadow-sm hover:shadow-md"
+                >
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#D1FAE5] text-2xl">
+                    🔑
+                  </div>
+                  <div>
+                    <h3 className="font-heading text-lg font-bold text-[#2C2826]">Solucionario</h3>
+                    <p className="mt-1 text-sm text-[#5A4F47]">
+                      Mismos {questions.length} ejercicios con respuestas correctas y explicaciones para el profesor o apoderado.
+                    </p>
+                  </div>
+                  <span className="mt-auto inline-flex items-center gap-2 text-sm font-semibold text-[#047857] group-hover:gap-3 transition-all">
+                    Abrir solucionario →
+                  </span>
+                </a>
+              </div>
+              <p className="mt-4 text-xs text-[#8A7F75]">
+                💡 En el navegador presiona <kbd className="rounded bg-[#FDFBF7] px-1.5 py-0.5 border border-[#EFE7D5] font-mono">Ctrl+P</kbd>{' '}
+                (Windows) o <kbd className="rounded bg-[#FDFBF7] px-1.5 py-0.5 border border-[#EFE7D5] font-mono">⌘P</kbd>{' '}
+                (Mac) para imprimir o guardar como PDF.
+              </p>
             </SectionShell>
 
             {/* SLIDES */}
