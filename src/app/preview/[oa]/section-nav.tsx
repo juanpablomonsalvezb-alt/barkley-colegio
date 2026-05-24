@@ -44,28 +44,28 @@ export default function SectionNav({ sections }: SectionNavProps) {
     <>
       {/* Desktop sidebar */}
       <nav className="hidden lg:block sticky top-24 self-start">
-        <div className="text-[10px] uppercase tracking-widest font-semibold text-slate-400 mb-3 px-3">
+        <div className="text-[11px] uppercase tracking-[0.18em] font-semibold text-[#8A7F75] mb-3 px-3">
           En esta unidad
         </div>
-        <ul className="space-y-0.5">
+        <ul className="space-y-1">
           {sections.map((s) => {
             const isActive = active === s.id
             return (
               <li key={s.id}>
                 <button
                   onClick={() => scrollTo(s.id)}
-                  className={`group flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-left text-sm transition ${
+                  className={`group flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 text-left text-[14px] transition ${
                     isActive
-                      ? 'bg-slate-900 text-white font-medium'
+                      ? 'bg-[#FFE4D1] text-[#C2410C] font-semibold ring-1 ring-[#FFCAB8] shadow-[0_1px_0_rgba(194,65,12,0.05),0_4px_12px_-6px_rgba(194,65,12,0.18)]'
                       : s.available
-                        ? 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
-                        : 'text-slate-400 hover:bg-slate-50'
+                        ? 'text-[#5A4F47] hover:bg-[#F7F2E8] hover:text-[#2C2826]'
+                        : 'text-[#B8AFA4] hover:bg-[#FDFBF7]'
                   }`}
                 >
                   <span className="text-base leading-none">{s.icon}</span>
                   <span className="flex-1 truncate">{s.label}</span>
                   {!s.available && (
-                    <span className={`text-[9px] uppercase tracking-wider font-semibold ${isActive ? 'text-slate-300' : 'text-slate-400'}`}>
+                    <span className={`text-[9px] uppercase tracking-wider font-semibold ${isActive ? 'text-[#C2410C]/60' : 'text-[#B8AFA4]'}`}>
                       Pronto
                     </span>
                   )}
@@ -77,18 +77,18 @@ export default function SectionNav({ sections }: SectionNavProps) {
       </nav>
 
       {/* Mobile horizontal scroll */}
-      <nav className="lg:hidden sticky top-0 z-40 -mx-4 border-b border-slate-200 bg-white/90 px-4 backdrop-blur">
-        <div className="flex gap-1 overflow-x-auto py-2 scrollbar-none">
+      <nav className="lg:hidden sticky top-0 z-40 -mx-4 border-b border-[#EFE7D5] bg-[#FDFBF7]/95 px-4 backdrop-blur">
+        <div className="flex gap-1.5 overflow-x-auto py-2.5 scrollbar-none">
           {sections.map((s) => {
             const isActive = active === s.id
             return (
               <button
                 key={s.id}
                 onClick={() => scrollTo(s.id)}
-                className={`flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium transition ${
+                className={`flex shrink-0 items-center gap-1.5 rounded-full px-3.5 py-2 text-[13px] font-medium transition ${
                   isActive
-                    ? 'bg-slate-900 text-white'
-                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                    ? 'bg-[#F97316] text-white shadow-sm'
+                    : 'bg-white text-[#5A4F47] ring-1 ring-[#EFE7D5] hover:bg-[#F7F2E8]'
                 } ${!s.available ? 'opacity-60' : ''}`}
               >
                 <span>{s.icon}</span>

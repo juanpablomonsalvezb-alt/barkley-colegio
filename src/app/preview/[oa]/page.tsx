@@ -87,7 +87,7 @@ function SectionShell({
   title,
   description,
   action,
-  tone = 'default',
+  tone,
   children,
 }: {
   id: string
@@ -97,36 +97,33 @@ function SectionShell({
   title: string
   description?: string
   action?: React.ReactNode
-  tone?: 'default' | 'amber' | 'purple'
+  tone?: keyof typeof SECTION_TONES
   children: React.ReactNode
 }) {
-  const toneClasses =
-    tone === 'amber'
-      ? 'border-amber-200/70 bg-gradient-to-b from-amber-50/40 to-white'
-      : tone === 'purple'
-        ? 'border-purple-200/70 bg-gradient-to-b from-purple-50/40 to-white'
-        : 'border-slate-200 bg-white'
-
-  const iconBg =
-    tone === 'amber'
-      ? 'bg-amber-100 text-amber-700'
-      : tone === 'purple'
-        ? 'bg-purple-100 text-purple-700'
-        : 'bg-slate-100 text-slate-700'
+  const t = SECTION_TONES[(tone ?? id) as keyof typeof SECTION_TONES] ?? SECTION_TONES.default
 
   return (
-    <section id={id} className={`scroll-mt-24 rounded-3xl border ${toneClasses} p-6 md:p-10 shadow-[0_1px_2px_rgba(15,23,42,0.04)]`}>
-      <header className="mb-6 flex items-start gap-4 md:mb-8">
-        <div className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ${iconBg}`}>
-          <Icon className="h-5 w-5" />
+    <section
+      id={id}
+      className="scroll-mt-24 rounded-[28px] border border-[#EFE7D5] bg-white p-6 md:p-10 shadow-[0_1px_0_rgba(44,40,38,0.03),0_8px_24px_-12px_rgba(44,40,38,0.10)] transition hover:shadow-[0_2px_0_rgba(44,40,38,0.04),0_16px_40px_-16px_rgba(44,40,38,0.14)]"
+    >
+      <header className="mb-7 flex items-start gap-4 md:mb-9">
+        <div
+          className={`relative flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl ${t.bg} ring-1 ring-inset ${t.ring}`}
+        >
+          <Icon className={`h-6 w-6 ${t.icon}`} />
         </div>
         <div className="flex-1 min-w-0">
-          <div className="text-[10px] uppercase tracking-widest font-semibold text-slate-400">
-            <span className="mr-1.5">{emoji}</span>
+          <div className={`text-[11px] uppercase tracking-[0.18em] font-semibold ${t.eyebrow} flex items-center gap-1.5`}>
+            <span className="text-sm leading-none">{emoji}</span>
             {eyebrow}
           </div>
-          <h2 className="mt-1 text-2xl md:text-3xl font-bold tracking-tight text-slate-900">{title}</h2>
-          {description && <p className="mt-1.5 text-sm text-slate-500 leading-relaxed max-w-2xl">{description}</p>}
+          <h2 className="mt-1.5 font-heading text-[28px] md:text-[34px] font-semibold tracking-tight text-[#2C2826] leading-[1.15]">
+            {title}
+          </h2>
+          {description && (
+            <p className="mt-2 text-[15px] text-[#5A4F47] leading-relaxed max-w-2xl">{description}</p>
+          )}
         </div>
         {action && <div className="hidden md:block">{action}</div>}
       </header>
@@ -135,19 +132,51 @@ function SectionShell({
   )
 }
 
-function EmptyState({ message = 'Generándose…', hint }: { message?: string; hint?: string }) {
+function EmptyState({ message = 'Estamos preparando esto…', hint = 'Vuelve en unos minutos' }: { message?: string; hint?: string }) {
   return (
-    <div className="flex flex-col items-center gap-3 rounded-2xl border border-dashed border-slate-200 bg-slate-50/60 px-6 py-12 text-center">
-      <div className="relative flex h-10 w-10 items-center justify-center">
-        <div className="absolute h-10 w-10 animate-ping rounded-full bg-slate-300/40" />
-        <Sparkles className="relative h-5 w-5 text-slate-400" />
+    <div className="flex flex-col items-center gap-4 rounded-3xl border-2 border-dashed border-[#EFE7D5] bg-[#FDFBF7] px-6 py-14 text-center">
+      <div className="relative flex h-16 w-16 items-center justify-center">
+        <div className="absolute inset-0 animate-ping rounded-full bg-[#F97316]/15" />
+        <div className="relative flex h-14 w-14 items-center justify-center rounded-full bg-[#FFE4D1] text-3xl animate-float">
+          🐶
+        </div>
       </div>
       <div>
-        <div className="text-sm font-medium text-slate-600">{message}</div>
-        {hint && <div className="mt-0.5 text-xs text-slate-400">{hint}</div>}
+        <div className="text-base font-medium text-[#2C2826]">{message}</div>
+        {hint && <div className="mt-1 text-sm text-[#8A7F75]">{hint}</div>}
       </div>
     </div>
   )
+}
+
+// Paleta de cada sección — color cálido, ningún morado tech.
+const SECTION_TONES: Record<
+  string,
+  { bg: string; ring: string; icon: string; eyebrow: string; halo: string }
+> = {
+  audio:         { bg: 'bg-[#DBF1FF]', ring: 'ring-[#BFE6FF]', icon: 'text-[#0369A1]', eyebrow: 'text-[#0369A1]', halo: 'bg-[#0369A1]/10' },
+  video:         { bg: 'bg-[#FFE0D6]', ring: 'ring-[#FFCAB8]', icon: 'text-[#C2410C]', eyebrow: 'text-[#C2410C]', halo: 'bg-[#C2410C]/10' },
+  lesson:        { bg: 'bg-[#D1FAE5]', ring: 'ring-[#A7F3D0]', icon: 'text-[#047857]', eyebrow: 'text-[#047857]', halo: 'bg-[#047857]/10' },
+  quiz:          { bg: 'bg-[#FEF3C7]', ring: 'ring-[#FDE68A]', icon: 'text-[#A16207]', eyebrow: 'text-[#A16207]', halo: 'bg-[#A16207]/10' },
+  slides:        { bg: 'bg-[#FFE4D1]', ring: 'ring-[#FED7AA]', icon: 'text-[#C2410C]', eyebrow: 'text-[#C2410C]', halo: 'bg-[#C2410C]/10' },
+  infographic:   { bg: 'bg-[#CFFAFE]', ring: 'ring-[#A5F3FC]', icon: 'text-[#0E7490]', eyebrow: 'text-[#0E7490]', halo: 'bg-[#0E7490]/10' },
+  mindmap:       { bg: 'bg-[#EDE9FE]', ring: 'ring-[#DDD6FE]', icon: 'text-[#6D28D9]', eyebrow: 'text-[#6D28D9]', halo: 'bg-[#6D28D9]/10' },
+  flashcards:    { bg: 'bg-[#FCE7F3]', ring: 'ring-[#FBCFE8]', icon: 'text-[#BE185D]', eyebrow: 'text-[#BE185D]', halo: 'bg-[#BE185D]/10' },
+  guide:         { bg: 'bg-[#F5E6D3]', ring: 'ring-[#EAD2B0]', icon: 'text-[#92400E]', eyebrow: 'text-[#92400E]', halo: 'bg-[#92400E]/10' },
+  reinforcement: { bg: 'bg-[#FFE0D6]', ring: 'ring-[#FFCAB8]', icon: 'text-[#C2410C]', eyebrow: 'text-[#C2410C]', halo: 'bg-[#C2410C]/10' },
+  challenge:     { bg: 'bg-[#D1FAE5]', ring: 'ring-[#A7F3D0]', icon: 'text-[#047857]', eyebrow: 'text-[#047857]', halo: 'bg-[#047857]/10' },
+  default:       { bg: 'bg-[#F7F2E8]', ring: 'ring-[#EFE7D5]', icon: 'text-[#5A4F47]', eyebrow: 'text-[#8A7F75]', halo: 'bg-[#5A4F47]/10' },
+}
+
+function subjectBadge(name?: string): { bg: string; text: string; ring: string } {
+  const n = (name ?? '').toLowerCase()
+  if (n.includes('matem')) return { bg: 'bg-[#DBEAFE]', text: 'text-[#1D4ED8]', ring: 'ring-[#BFDBFE]' }
+  if (n.includes('lenguaje') || n.includes('lectura') || n.includes('lengua'))
+    return { bg: 'bg-[#FEE2E2]', text: 'text-[#B91C1C]', ring: 'ring-[#FECACA]' }
+  if (n.includes('cien') || n.includes('natura')) return { bg: 'bg-[#D1FAE5]', text: 'text-[#047857]', ring: 'ring-[#A7F3D0]' }
+  if (n.includes('histo') || n.includes('social')) return { bg: 'bg-[#FEF3C7]', text: 'text-[#B45309]', ring: 'ring-[#FDE68A]' }
+  if (n.includes('ingl')) return { bg: 'bg-[#EDE9FE]', text: 'text-[#6D28D9]', ring: 'ring-[#DDD6FE]' }
+  return { bg: 'bg-[#F7F2E8]', text: 'text-[#5A4F47]', ring: 'ring-[#EFE7D5]' }
 }
 
 // ---------- Page ----------
@@ -269,84 +298,110 @@ export default async function PreviewPage({ params }: PageProps) {
     { id: 'challenge', label: 'Desafío', icon: '🚀', available: !!lesson.challenge_content_html },
   ]
 
+  const subjBadge = subjectBadge(subject?.name)
+
   return (
-    <div className="min-h-screen bg-slate-50/50 antialiased">
+    <div className="min-h-screen bg-[#FDFBF7] antialiased">
       {/* ============ HERO ============ */}
-      <header className="relative overflow-hidden border-b border-slate-200 bg-slate-900 text-white">
-        {/* Decorative grid + gradient */}
+      <header className="relative overflow-hidden border-b border-[#EFE7D5] bg-paper-grain bg-[#FDFBF7]">
+        {/* Líneas rayadas tipo cuaderno escolar (sutil) */}
         <div
-          className="absolute inset-0 opacity-[0.07]"
+          aria-hidden
+          className="absolute inset-0 opacity-[0.35] pointer-events-none"
           style={{
             backgroundImage:
-              'linear-gradient(rgba(255,255,255,.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.5) 1px, transparent 1px)',
-            backgroundSize: '32px 32px',
+              'linear-gradient(to bottom, transparent 31px, rgba(180, 160, 130, 0.18) 31px, rgba(180, 160, 130, 0.18) 32px, transparent 32px)',
+            backgroundSize: '100% 32px',
           }}
         />
+        {/* Halos cálidos */}
         <div
-          className="absolute -top-32 left-1/3 h-[420px] w-[420px] rounded-full opacity-40 blur-3xl"
-          style={{ background: 'radial-gradient(circle, rgb(99 102 241) 0%, transparent 70%)' }}
+          aria-hidden
+          className="absolute -top-40 -left-20 h-[480px] w-[480px] rounded-full opacity-50 blur-3xl"
+          style={{ background: 'radial-gradient(circle, #FFE4D1 0%, transparent 70%)' }}
         />
         <div
-          className="absolute -bottom-40 right-1/4 h-[420px] w-[420px] rounded-full opacity-30 blur-3xl"
-          style={{ background: 'radial-gradient(circle, rgb(168 85 247) 0%, transparent 70%)' }}
+          aria-hidden
+          className="absolute -bottom-32 -right-20 h-[420px] w-[420px] rounded-full opacity-50 blur-3xl"
+          style={{ background: 'radial-gradient(circle, #FEF3C7 0%, transparent 70%)' }}
         />
 
-        <div className="relative mx-auto max-w-6xl px-4 md:px-8 pt-10 pb-12 md:pt-16 md:pb-20">
+        {/* Doodle: el zorro Barkley en la esquina */}
+        <div
+          aria-hidden
+          className="absolute top-6 right-6 md:top-10 md:right-10 text-5xl md:text-7xl select-none rotate-[8deg] animate-float opacity-90"
+        >
+          🦊
+        </div>
+
+        <div className="relative mx-auto max-w-6xl px-4 md:px-8 pt-10 pb-14 md:pt-16 md:pb-20">
           {/* Top bar */}
-          <div className="flex flex-wrap items-center gap-3 text-xs text-slate-300">
-            <div className="flex items-center gap-1.5 font-semibold">
+          <div className="flex flex-wrap items-center gap-2.5 text-[13px]">
+            <div className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1 font-semibold text-[#C2410C] ring-1 ring-[#FFE4D1] shadow-sm">
               <span className="text-base">🐶</span> Barkley
             </div>
-            <span className="text-slate-600">/</span>
             {subject && (
-              <>
-                <span>{subject.name}</span>
-                <span className="text-slate-600">/</span>
-              </>
+              <span
+                className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[12px] font-semibold ring-1 ring-inset ${subjBadge.bg} ${subjBadge.text} ${subjBadge.ring}`}
+              >
+                {subject.name}
+              </span>
             )}
             {course && (
-              <>
-                <span>{course.title}</span>
-                <span className="text-slate-600">/</span>
-              </>
+              <span className="text-[13px] text-[#5A4F47]">
+                {course.title}
+              </span>
             )}
-            <span className="text-slate-200">{unit?.title}</span>
-            <span className="ml-auto rounded-full border border-white/15 bg-white/5 px-2.5 py-0.5 font-mono text-[10px] tracking-wider text-slate-300 backdrop-blur">
+            <span className="ml-auto inline-flex items-center rounded-full bg-white px-2.5 py-1 font-mono text-[11px] tracking-wider text-[#5A4F47] ring-1 ring-[#EFE7D5] shadow-sm">
               {oaCode.toUpperCase()}
             </span>
           </div>
 
-          {/* Title */}
-          <h1 className="mt-6 max-w-4xl text-4xl md:text-6xl font-bold tracking-tight leading-[1.05]">
-            {lesson.title}
+          {/* Title — Fraunces serif amigable */}
+          <h1 className="mt-7 max-w-4xl font-heading text-[44px] md:text-[68px] font-semibold tracking-tight leading-[1.02] text-[#2C2826]">
+            <span className="barkley-underline">{lesson.title}</span>
           </h1>
 
           {/* Subtitle */}
-          <p className="mt-4 max-w-2xl text-base md:text-lg text-slate-300 leading-relaxed">
-            Unidad interactiva de aprendizaje con podcast, video, lección, quiz y materiales de estudio generados con
-            IA para Exámenes Libres MINEDUC.
+          <p className="mt-5 max-w-2xl text-[17px] md:text-[19px] text-[#5A4F47] leading-relaxed">
+            Una unidad para aprender a tu ritmo: podcast, video, lección, quiz y
+            materiales de estudio hechos para entender de verdad.
           </p>
 
-          {/* Meta pills */}
-          <div className="mt-7 flex flex-wrap items-center gap-2">
-            <div className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium text-slate-200 backdrop-blur">
-              <Clock className="h-3.5 w-3.5 text-slate-400" />
-              {lesson.estimated_minutes ?? 15} min
+          {/* Meta cards */}
+          <div className="mt-8 flex flex-wrap items-stretch gap-2.5">
+            <div className="inline-flex items-center gap-2 rounded-2xl bg-white px-3.5 py-2.5 text-sm font-medium text-[#2C2826] ring-1 ring-[#EFE7D5] shadow-[0_1px_0_rgba(44,40,38,0.04),0_4px_12px_-6px_rgba(44,40,38,0.10)]">
+              <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#DBF1FF]">
+                <Clock className="h-4 w-4 text-[#0369A1]" />
+              </span>
+              <span>
+                <span className="font-semibold">{lesson.estimated_minutes ?? 15}</span>
+                <span className="text-[#8A7F75]"> min</span>
+              </span>
             </div>
-            <div className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium text-slate-200 backdrop-blur">
-              <Zap className="h-3.5 w-3.5 text-amber-400" />
-              {'⚡'.repeat(lesson.difficulty_level ?? 2)}
-              <span className="text-slate-400">Dificultad {lesson.difficulty_level ?? 2}/5</span>
+            <div className="inline-flex items-center gap-2 rounded-2xl bg-white px-3.5 py-2.5 text-sm font-medium text-[#2C2826] ring-1 ring-[#EFE7D5] shadow-[0_1px_0_rgba(44,40,38,0.04),0_4px_12px_-6px_rgba(44,40,38,0.10)]">
+              <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#FEF3C7]">
+                <Zap className="h-4 w-4 text-[#A16207]" />
+              </span>
+              <span>
+                <span className="font-semibold">Nivel {lesson.difficulty_level ?? 2}</span>
+                <span className="text-[#8A7F75]">/5</span>
+              </span>
             </div>
             {quiz && (
-              <div className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium text-slate-200 backdrop-blur">
-                <FileQuestion className="h-3.5 w-3.5 text-slate-400" />
-                {questions.length} preguntas
+              <div className="inline-flex items-center gap-2 rounded-2xl bg-white px-3.5 py-2.5 text-sm font-medium text-[#2C2826] ring-1 ring-[#EFE7D5] shadow-[0_1px_0_rgba(44,40,38,0.04),0_4px_12px_-6px_rgba(44,40,38,0.10)]">
+                <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#FEF3C7]">
+                  <FileQuestion className="h-4 w-4 text-[#A16207]" />
+                </span>
+                <span>
+                  <span className="font-semibold">{questions.length}</span>
+                  <span className="text-[#8A7F75]"> preguntas</span>
+                </span>
               </div>
             )}
-            <div className="inline-flex items-center gap-1.5 rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-1.5 text-xs font-medium text-emerald-300 backdrop-blur">
-              <Sparkles className="h-3.5 w-3.5" />
-              Preview público
+            <div className="inline-flex items-center gap-2 rounded-2xl bg-[#D1FAE5] px-3.5 py-2.5 text-sm font-semibold text-[#047857] ring-1 ring-[#A7F3D0]">
+              <Sparkles className="h-4 w-4" />
+              Preview gratuito
             </div>
           </div>
         </div>
@@ -406,7 +461,7 @@ export default async function PreviewPage({ params }: PageProps) {
             >
               {lesson.content_html ? (
                 <article
-                  className="prose prose-lg prose-slate max-w-none prose-headings:tracking-tight prose-headings:font-bold prose-h1:text-4xl prose-h2:text-2xl prose-h2:mt-10 prose-h3:text-xl prose-p:text-slate-700 prose-p:leading-relaxed prose-strong:text-slate-900 prose-a:text-indigo-600 prose-a:no-underline hover:prose-a:underline prose-code:rounded prose-code:bg-slate-100 prose-code:px-1.5 prose-code:py-0.5 prose-code:text-[0.875em] prose-code:before:hidden prose-code:after:hidden prose-blockquote:not-italic prose-blockquote:border-l-4 prose-blockquote:border-indigo-500 prose-blockquote:bg-indigo-50/50 prose-blockquote:py-2 prose-blockquote:px-4 prose-blockquote:rounded-r-lg prose-blockquote:font-normal prose-blockquote:text-slate-700 prose-li:text-slate-700 prose-img:rounded-xl prose-img:shadow-sm"
+                  className="prose prose-lg max-w-[68ch] prose-headings:font-heading prose-headings:tracking-tight prose-headings:font-semibold prose-headings:text-[#2C2826] prose-h1:text-4xl prose-h2:text-[28px] prose-h2:mt-10 prose-h3:text-xl prose-p:text-[#3F3833] prose-p:leading-[1.75] prose-strong:text-[#2C2826] prose-a:text-[#C2410C] prose-a:no-underline hover:prose-a:underline prose-code:rounded-md prose-code:bg-[#FEF3C7] prose-code:px-1.5 prose-code:py-0.5 prose-code:text-[0.875em] prose-code:text-[#A16207] prose-code:before:hidden prose-code:after:hidden prose-blockquote:not-italic prose-blockquote:border-l-4 prose-blockquote:border-[#F97316] prose-blockquote:bg-[#FFE4D1]/40 prose-blockquote:py-2 prose-blockquote:px-4 prose-blockquote:rounded-r-2xl prose-blockquote:font-normal prose-blockquote:text-[#3F3833] prose-li:text-[#3F3833] prose-img:rounded-2xl prose-img:shadow-sm"
                   dangerouslySetInnerHTML={{ __html: lesson.content_html }}
                 />
               ) : (
@@ -423,9 +478,9 @@ export default async function PreviewPage({ params }: PageProps) {
               title={quiz?.title ?? 'Quiz de práctica'}
               description={`${questions.length} preguntas · Aprueba con ${passingScore}%${timeMin ? ` · ${timeMin} min` : ''}`}
               action={
-                <Badge variant="secondary" className="gap-1.5 bg-indigo-50 text-indigo-700 hover:bg-indigo-100">
+                <Badge variant="secondary" className="gap-1.5 bg-[#FEF3C7] text-[#A16207] hover:bg-[#FDE68A] ring-1 ring-[#FDE68A]">
                   <Sparkles className="h-3 w-3" />
-                  Modo preview · respuestas visibles
+                  Respuestas visibles
                 </Badge>
               }
             >
@@ -523,10 +578,10 @@ export default async function PreviewPage({ params }: PageProps) {
                 eyebrow="Ruta adaptativa · < 60%"
                 title="Refuerzo"
                 description="Contenido alternativo simplificado para quien necesita reforzar antes de avanzar."
-                tone="amber"
+                tone="reinforcement"
               >
                 <article
-                  className="prose prose-lg prose-slate max-w-none prose-headings:tracking-tight prose-headings:font-bold prose-h2:text-2xl prose-p:text-slate-700 prose-p:leading-relaxed prose-strong:text-slate-900"
+                  className="prose prose-lg max-w-none prose-headings:font-heading prose-headings:tracking-tight prose-headings:font-semibold prose-headings:text-[#2C2826] prose-h2:text-2xl prose-p:text-[#3F3833] prose-p:leading-relaxed prose-strong:text-[#2C2826] prose-a:text-[#C2410C]"
                   dangerouslySetInnerHTML={{ __html: lesson.reinforcement_content_html }}
                 />
               </SectionShell>
@@ -541,18 +596,18 @@ export default async function PreviewPage({ params }: PageProps) {
                 eyebrow="Ruta adaptativa · > 85%"
                 title="Desafío"
                 description="Contenido avanzado para quienes ya dominan el OA y buscan ir más lejos."
-                tone="purple"
+                tone="challenge"
               >
                 <article
-                  className="prose prose-lg prose-slate max-w-none prose-headings:tracking-tight prose-headings:font-bold prose-h2:text-2xl prose-p:text-slate-700 prose-p:leading-relaxed prose-strong:text-slate-900"
+                  className="prose prose-lg max-w-none prose-headings:font-heading prose-headings:tracking-tight prose-headings:font-semibold prose-headings:text-[#2C2826] prose-h2:text-2xl prose-p:text-[#3F3833] prose-p:leading-relaxed prose-strong:text-[#2C2826] prose-a:text-[#047857]"
                   dangerouslySetInnerHTML={{ __html: lesson.challenge_content_html }}
                 />
                 {lesson.challenge_project_description && (
-                  <div className="mt-6 rounded-2xl border border-purple-200 bg-white p-5">
-                    <div className="text-[10px] uppercase tracking-widest font-semibold text-purple-600 mb-2">
-                      📐 Proyecto práctico
+                  <div className="mt-6 rounded-3xl border border-[#A7F3D0] bg-[#F0FDF4] p-5">
+                    <div className="text-[11px] uppercase tracking-[0.18em] font-semibold text-[#047857] mb-2 flex items-center gap-1.5">
+                      <span>📐</span> Proyecto práctico
                     </div>
-                    <pre className="whitespace-pre-wrap font-sans text-sm text-slate-700 leading-relaxed">
+                    <pre className="whitespace-pre-wrap font-sans text-[15px] text-[#2C2826] leading-relaxed">
                       {lesson.challenge_project_description}
                     </pre>
                   </div>
@@ -563,26 +618,28 @@ export default async function PreviewPage({ params }: PageProps) {
         </div>
 
         {/* ============ FOOTER ============ */}
-        <footer className="mt-16 md:mt-24 border-t border-slate-200 pt-8">
+        <footer className="mt-16 md:mt-24 border-t border-[#EFE7D5] pt-8">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div className="flex items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-900 text-lg">🐶</div>
+              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#FFE4D1] text-xl ring-1 ring-[#FFCAB8]">
+                🐶
+              </div>
               <div>
-                <div className="text-sm font-semibold text-slate-900">Barkley</div>
-                <div className="text-xs text-slate-500">Preparación para Exámenes Libres MINEDUC</div>
+                <div className="font-heading text-base font-semibold text-[#2C2826]">Barkley</div>
+                <div className="text-[13px] text-[#8A7F75]">Preparación para Exámenes Libres MINEDUC</div>
               </div>
             </div>
             <div className="flex items-center gap-2">
               <ShareButton />
             </div>
           </div>
-          <Separator className="my-6" />
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 text-xs text-slate-400">
+          <Separator className="my-6 bg-[#EFE7D5]" />
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 text-[12px] text-[#8A7F75]">
             <div>
               Preview público · Lección <span className="font-mono">{lesson.id.slice(0, 8)}</span> · OA{' '}
               <span className="font-mono">{oaCode.toUpperCase()}</span>
             </div>
-            <div>Contenido generado con IA · Curado por equipo pedagógico</div>
+            <div>Hecho con cariño en Chile · Curado por equipo pedagógico</div>
           </div>
         </footer>
       </div>
