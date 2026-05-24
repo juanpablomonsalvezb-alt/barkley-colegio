@@ -1,0 +1,7 @@
+LIBROS ESCOLARES/
+temarios/*.pdf
+temarios/*.md
+generated/
+docs/
+scripts/
+*.pdf
