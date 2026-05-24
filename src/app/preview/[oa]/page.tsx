@@ -15,7 +15,6 @@ import {
   Video as VideoIcon,
   FileQuestion,
   Presentation,
-  Image as ImageIcon,
   Network,
   Layers,
   ScrollText,
@@ -34,7 +33,6 @@ import VideoPlayer, { VideoPlaceholder } from './video-player'
 import FlashcardsDeck from './flashcards-deck'
 import MindMapViewer, { type MindMapNode } from './mind-map-viewer'
 import SlidesViewer from './slides-viewer'
-import InfographicModal from './infographic-modal'
 import SectionNav, { type NavSection } from './section-nav'
 import ShareButton from './share-button'
 import { Markdown } from './markdown'
@@ -290,7 +288,6 @@ export default async function PreviewPage({ params }: PageProps) {
     { id: 'lesson', label: 'Lección', icon: '📖', available: !!lesson.content_html },
     { id: 'quiz', label: 'Quiz', icon: '📝', available: questions.length > 0 },
     { id: 'slides', label: 'Slides', icon: '🎴', available: !!slideUrl },
-    { id: 'infographic', label: 'Infografía', icon: '🖼️', available: !!infographicUrl },
     { id: 'mindmap', label: 'Mapa mental', icon: '🕸️', available: !!mindMap },
     { id: 'flashcards', label: 'Flashcards', icon: '🧠', available: !!flashcards },
     { id: 'guide', label: 'Guía de estudio', icon: '📚', available: !!studyGuide },
@@ -511,22 +508,6 @@ export default async function PreviewPage({ params }: PageProps) {
               description="Presentación lista para usar en clase o para repasar de forma visual."
             >
               {slideUrl ? <SlidesViewer url={slideUrl} /> : <EmptyState message="Slides en generación…" />}
-            </SectionShell>
-
-            {/* INFOGRAPHIC */}
-            <SectionShell
-              id="infographic"
-              icon={ImageIcon}
-              emoji="🖼️"
-              eyebrow="Visual síntesis"
-              title="Infografía"
-              description="Un vistazo visual a todos los conceptos clave de la unidad en una sola imagen."
-            >
-              {infographicUrl ? (
-                <InfographicModal src={infographicUrl} alt={unit?.title ?? 'Infografía'} />
-              ) : (
-                <EmptyState message="Infografía en generación…" />
-              )}
             </SectionShell>
 
             {/* MIND MAP */}
