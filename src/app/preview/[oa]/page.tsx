@@ -24,14 +24,12 @@ import {
   Sparkles,
   Clock,
   Zap,
-  CheckCircle2,
-  Lightbulb,
-  XCircle,
 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
 
 import AudioPlayer from './audio-player'
+import QuizCarousel, { type QuizQuestion } from './quiz-carousel'
 import VideoPlayer, { VideoPlaceholder } from './video-player'
 import FlashcardsDeck from './flashcards-deck'
 import MindMapViewer, { type MindMapNode } from './mind-map-viewer'
@@ -206,8 +204,52 @@ export default async function PreviewPage({ params }: PageProps) {
   const videoUrl: string | null = unit?.video_overview_url ?? null
   const slideUrl: string | null = unit?.slide_deck_url ?? null
   const infographicUrl: string | null = unit?.infographic_url ?? null
-  const mindMap: MindMapNode | null = unit?.mind_map_json ?? null
-  const flashcards: Flashcard[] | null = unit?.flashcards_json ?? null
+  // ---- Mind map: NotebookLM devuelve {name, children:[{name, children}]} (recursivo).
+  //      Nuestro viewer espera {label, children}. Mapeamos name->label.
+  function normalizeMindMap(raw: unknown): MindMapNode | null {
+    if (!raw || typeof raw !== 'object') return null
+    const r = raw as Record<string, any>
+    // Si ya viene con label, asumimos formato correcto.
+    const label = typeof r.label === 'string' ? r.label : typeof r.name === 'string' ? r.name : null
+    if (!label) {
+      // A veces viene envuelto como {root: {...}} o {tree: {...}}
+      if (r.root) return normalizeMindMap(r.root)
+      if (r.tree) return normalizeMindMap(r.tree)
+      return null
+    }
+    const children = Array.isArray(r.children)
+      ? (r.children.map(normalizeMindMap).filter(Boolean) as MindMapNode[])
+      : []
+    const description = typeof r.description === 'string' ? r.description : undefined
+    return { label, description, children }
+  }
+  const mindMap: MindMapNode | null = normalizeMindMap(unit?.mind_map_json)
+
+  // ---- Flashcards: NotebookLM devuelve {cards: [{front, back}]} pero a veces
+  //      llega como array directo o {flashcards: [...]}. Normalizamos.
+  function normalizeFlashcards(raw: unknown): Flashcard[] | null {
+    if (!raw) return null
+    let arr: any[] | null = null
+    if (Array.isArray(raw)) arr = raw
+    else if (typeof raw === 'object') {
+      const r = raw as Record<string, any>
+      if (Array.isArray(r.cards)) arr = r.cards
+      else if (Array.isArray(r.flashcards)) arr = r.flashcards
+      else if (Array.isArray(r.items)) arr = r.items
+    }
+    if (!arr) return null
+    const cleaned = arr
+      .map((c) => {
+        if (!c || typeof c !== 'object') return null
+        const front = c.front ?? c.question ?? c.term ?? c.q
+        const back = c.back ?? c.answer ?? c.definition ?? c.a
+        if (typeof front !== 'string' || typeof back !== 'string') return null
+        return { front, back } as Flashcard
+      })
+      .filter(Boolean) as Flashcard[]
+    return cleaned.length ? cleaned : null
+  }
+  const flashcards: Flashcard[] | null = normalizeFlashcards(unit?.flashcards_json)
   const studyGuide: string | null = unit?.study_guide_md ?? null
 
   const passingScore = quiz?.passing_score ?? 60
@@ -390,132 +432,17 @@ export default async function PreviewPage({ params }: PageProps) {
               {questions.length === 0 ? (
                 <EmptyState message="Quiz en generación…" />
               ) : (
-                <div className="space-y-4">
-                  {questions.map((q, idx) => {
-                    const opts = Array.isArray(q.options)
+                <QuizCarousel
+                  questions={questions.map((q) => ({
+                    ...q,
+                    options: Array.isArray(q.options)
                       ? q.options.map((o, i) => renderOption(o, i))
-                      : Object.entries((q.options as Record<string, string>) ?? {}).map(([id, text]) => ({ id, text }))
-                    const correct = q.correct_answer
-                    const isCorrect = (id: string) =>
-                      Array.isArray(correct) ? correct.includes(id) : correct === id
-                    const noOpts = opts.length === 0 || q.question_type === 'completar' || q.question_type === 'ordenar'
-
-                    return (
-                      <div
-                        key={q.id}
-                        className="group rounded-2xl border border-slate-200 bg-white p-5 md:p-6 transition hover:border-slate-300 hover:shadow-sm"
-                      >
-                        <div className="flex items-start gap-4">
-                          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-slate-900 text-xs font-mono font-semibold text-white tabular-nums">
-                            {idx + 1}
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <p className="font-semibold text-slate-900 leading-snug text-base">{q.question_text}</p>
-                            <div className="mt-2 flex flex-wrap items-center gap-1.5 text-[10px]">
-                              <Badge variant="outline" className="font-mono uppercase tracking-wider text-slate-500">
-                                {q.question_type}
-                              </Badge>
-                              <Badge variant="outline" className="text-slate-500">
-                                {'⚡'.repeat(q.difficulty_level)}
-                              </Badge>
-                              {q.topic_tag && (
-                                <Badge variant="outline" className="text-slate-500">
-                                  {q.topic_tag}
-                                </Badge>
-                              )}
-                              <Badge variant="outline" className="text-slate-500">
-                                {q.points} pts
-                              </Badge>
-                            </div>
-                          </div>
-                        </div>
-
-                        {!noOpts && opts.length > 0 && (
-                          <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-2">
-                            {opts.map((opt) => {
-                              const ok = isCorrect(opt.id)
-                              return (
-                                <div
-                                  key={opt.id}
-                                  className={`flex items-start gap-3 rounded-xl border px-4 py-3 text-sm transition ${
-                                    ok
-                                      ? 'border-emerald-200 bg-emerald-50 text-emerald-950'
-                                      : 'border-slate-200 bg-slate-50/50 text-slate-700'
-                                  }`}
-                                >
-                                  <span
-                                    className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[10px] font-mono font-bold ${
-                                      ok ? 'bg-emerald-600 text-white' : 'bg-white text-slate-500 ring-1 ring-slate-200'
-                                    }`}
-                                  >
-                                    {ok ? <CheckCircle2 className="h-3.5 w-3.5" /> : opt.id.toUpperCase()}
-                                  </span>
-                                  <span className={ok ? 'font-medium' : ''}>{opt.text}</span>
-                                </div>
-                              )
-                            })}
-                          </div>
-                        )}
-
-                        {noOpts && (
-                          <div className="mt-4 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm">
-                            <span className="text-[10px] uppercase tracking-wider font-semibold text-emerald-700">
-                              Respuesta correcta
-                            </span>
-                            <div className="mt-1 font-mono text-emerald-900">
-                              {typeof correct === 'string' ? correct : JSON.stringify(correct)}
-                            </div>
-                          </div>
-                        )}
-
-                        <details className="group/det mt-4 rounded-xl border border-slate-200 bg-slate-50/50 overflow-hidden">
-                          <summary className="cursor-pointer list-none px-4 py-2.5 text-xs font-medium text-slate-600 transition hover:bg-slate-100 flex items-center gap-2">
-                            <span className="text-[10px] uppercase tracking-wider">Ver feedback pedagógico</span>
-                            <span className="ml-auto text-slate-400 group-open/det:rotate-90 transition-transform">›</span>
-                          </summary>
-                          <div className="border-t border-slate-200 bg-white px-4 py-3 space-y-3 text-sm">
-                            <div className="flex gap-2.5">
-                              <CheckCircle2 className="h-4 w-4 shrink-0 mt-0.5 text-emerald-600" />
-                              <div>
-                                <div className="text-[10px] uppercase tracking-wider font-semibold text-emerald-700">Si responde correcto</div>
-                                <div className="text-slate-700">{q.feedback_correct}</div>
-                              </div>
-                            </div>
-                            <div className="flex gap-2.5">
-                              <XCircle className="h-4 w-4 shrink-0 mt-0.5 text-rose-600" />
-                              <div>
-                                <div className="text-[10px] uppercase tracking-wider font-semibold text-rose-700">Si responde incorrecto</div>
-                                <div className="text-slate-700">{q.feedback_incorrect}</div>
-                              </div>
-                            </div>
-                            {q.feedback_hint && (
-                              <div className="flex gap-2.5">
-                                <Lightbulb className="h-4 w-4 shrink-0 mt-0.5 text-amber-600" />
-                                <div>
-                                  <div className="text-[10px] uppercase tracking-wider font-semibold text-amber-700">Pista</div>
-                                  <div className="text-slate-700">{q.feedback_hint}</div>
-                                </div>
-                              </div>
-                            )}
-                            {q.feedback_per_option && Object.keys(q.feedback_per_option).length > 0 && (
-                              <div>
-                                <div className="text-[10px] uppercase tracking-wider font-semibold text-slate-500 mb-1.5">Feedback por opción</div>
-                                <ul className="space-y-1.5">
-                                  {Object.entries(q.feedback_per_option).map(([id, txt]) => (
-                                    <li key={id} className="flex gap-2 text-slate-700">
-                                      <span className="font-mono text-xs text-slate-400 mt-0.5">{id})</span>
-                                      <span>{txt}</span>
-                                    </li>
-                                  ))}
-                                </ul>
-                              </div>
-                            )}
-                          </div>
-                        </details>
-                      </div>
-                    )
-                  })}
-                </div>
+                      : Object.entries((q.options as Record<string, string>) ?? {}).map(([id, text]) => ({
+                          id,
+                          text,
+                        })),
+                  })) as QuizQuestion[]}
+                />
               )}
             </SectionShell>
 

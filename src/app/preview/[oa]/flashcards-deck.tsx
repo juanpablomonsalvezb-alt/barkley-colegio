@@ -13,6 +13,24 @@ interface FlashcardsDeckProps {
   cards: Flashcard[]
 }
 
+/**
+ * NotebookLM devuelve textos con LaTeX inline tipo `$10\ 000$` o `$2\ 346$`.
+ * Convertimos a algo legible: quitamos `$`, reemplazamos `\ ` (espacio escapado)
+ * por espacio fino y limpiamos backslashes residuales.
+ */
+function pretty(text: string): string {
+  return text
+    .replace(/\$([^$]+)\$/g, (_, inner: string) =>
+      inner
+        .replace(/\\\s/g, ' ') // espacio escapado -> narrow nbsp
+        .replace(/\\,/g, ' ')
+        .replace(/\\;/g, ' ')
+        .replace(/\\/g, '')
+        .trim()
+    )
+    .replace(/\\\$/g, '$')
+}
+
 export default function FlashcardsDeck({ cards }: FlashcardsDeckProps) {
   const [order, setOrder] = useState<number[]>(() => cards.map((_, i) => i))
   const [idx, setIdx] = useState(0)
@@ -80,7 +98,7 @@ export default function FlashcardsDeck({ cards }: FlashcardsDeckProps) {
               style={{ backfaceVisibility: 'hidden' }}
             >
               <div className="text-[10px] uppercase tracking-widest font-semibold text-slate-400">Pregunta</div>
-              <div className="mt-3 text-2xl font-semibold text-slate-900 leading-snug">{card.front}</div>
+              <div className="mt-3 text-2xl font-semibold text-slate-900 leading-snug">{pretty(card.front)}</div>
               <div className="mt-6 text-xs text-slate-400">Click para revelar</div>
             </div>
             {/* Back */}
@@ -89,7 +107,7 @@ export default function FlashcardsDeck({ cards }: FlashcardsDeckProps) {
               style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
             >
               <div className="text-[10px] uppercase tracking-widest font-semibold text-indigo-600">Respuesta</div>
-              <div className="mt-3 text-xl text-slate-800 leading-relaxed">{card.back}</div>
+              <div className="mt-3 text-xl text-slate-800 leading-relaxed">{pretty(card.back)}</div>
             </div>
           </div>
         </button>
