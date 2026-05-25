@@ -90,12 +90,17 @@ interface OAJson {
   }
 }
 
-async function insertOA(j: OAJson) {
+async function insertOA(j: OAJson, expansionOnly = false) {
   const oa_code = j.oa.oa_code
   const lesson = await findLessonByOA(oa_code)
   if (!lesson) {
     console.warn(`  ⚠ Sin placeholder para ${oa_code}. Corre seed-4basico.ts primero.`)
     return
+  }
+
+  // Modo expansión: solo insertar sub_lessons + practice_sets, no tocar lesson/quiz/refuerzo/desafío
+  if (expansionOnly) {
+    return insertExpansion(j, lesson, oa_code)
   }
 
   // 1. Update lesson
@@ -113,10 +118,12 @@ async function insertOA(j: OAJson) {
   const { error: leErr } = await supabase.from('lessons').update(lessonUpdate).eq('id', lesson.id)
   if (leErr) throw leErr
 
-  // 2. Upsert quiz
-  const quizUpsert: any = {
+  // 2. Insert formal quiz (after deleting previous formal one)
+  await supabase.from('quizzes').delete().eq('lesson_id', lesson.id).eq('quiz_kind', 'formal')
+  const quizPayload: any = {
     lesson_id: lesson.id,
     title: j.quiz.title ?? `Quiz: ${oa_code}`,
+    quiz_kind: 'formal',
     passing_score: j.quiz.passing_score ?? 60,
     time_limit_seconds: j.quiz.time_limit_seconds ?? 480,
     max_attempts: j.quiz.max_attempts ?? 3,
@@ -124,12 +131,13 @@ async function insertOA(j: OAJson) {
     shuffle_options: true,
     show_correct_after: true,
     total_questions: j.quiz.questions.length,
+    display_order: 1,
   }
-  if (PUBLISH) quizUpsert.is_published = true
+  if (PUBLISH) quizPayload.is_published = true
 
   const { data: quiz, error: qErr } = await supabase
     .from('quizzes')
-    .upsert(quizUpsert, { onConflict: 'lesson_id' })
+    .insert(quizPayload)
     .select('id')
     .single()
   if (qErr) throw qErr
@@ -198,6 +206,74 @@ async function insertOA(j: OAJson) {
     },
   ])
 
+  // 4.5. Sub-lecciones (si las hay)
+  const subLessons = (j as any).sub_lessons as any[] | undefined
+  if (subLessons?.length) {
+    // Borrar sub-lecciones previas
+    await supabase.from('lessons').delete().eq('parent_lesson_id', lesson.id).eq('lesson_kind', 'sub')
+    for (let i = 0; i < subLessons.length; i++) {
+      const sub = subLessons[i]
+      const subPayload: any = {
+        unit_id: lesson.unit_id,
+        parent_lesson_id: lesson.id,
+        lesson_kind: 'sub',
+        title: sub.title?.slice(0, 200) ?? `Sub-tema ${i + 1}`,
+        slug: `${oa_code.toLowerCase()}-sub-${i + 1}-${(sub.title ?? 'subtema').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').slice(0, 60)}`,
+        lesson_type: 'mixto',
+        display_order: 100 + i,
+        content_html: sub.contentHtml,
+        estimated_minutes: sub.estimatedMinutes ?? 12,
+        difficulty_level: sub.difficulty_level ?? 2,
+        is_essential: true,
+      }
+      if (PUBLISH) subPayload.is_published = true
+      await supabase.from('lessons').insert(subPayload)
+    }
+  }
+
+  // 4.6. Practice sets (quizzes adicionales con quiz_kind != 'formal')
+  const practiceSets = (j as any).practice_sets as any[] | undefined
+  if (practiceSets?.length) {
+    // Borrar practice quizzes previos
+    await supabase.from('quizzes').delete().eq('lesson_id', lesson.id).neq('quiz_kind', 'formal')
+    for (let i = 0; i < practiceSets.length; i++) {
+      const ps = practiceSets[i]
+      const psPayload: any = {
+        lesson_id: lesson.id,
+        title: ps.title ?? `Práctica ${i + 1}`,
+        quiz_kind: ps.kind ?? 'practice_medium',
+        passing_score: 0,
+        time_limit_seconds: ps.time_limit_seconds ?? 600,
+        max_attempts: 99,
+        shuffle_questions: true,
+        shuffle_options: true,
+        show_correct_after: true,
+        total_questions: ps.questions?.length ?? 0,
+        display_order: 10 + i,
+      }
+      if (PUBLISH) psPayload.is_published = true
+      const { data: psQuiz } = await supabase.from('quizzes').insert(psPayload).select('id').single()
+      if (psQuiz && ps.questions?.length) {
+        const psQs = ps.questions.map((q: any, idx: number) => ({
+          quiz_id: psQuiz.id,
+          question_type: q.question_type ?? 'opcion_multiple',
+          question_text: q.question_text,
+          display_order: idx + 1,
+          points: q.points ?? 1,
+          difficulty_level: q.difficulty_level ?? 1,
+          topic_tag: q.topic_tag ?? null,
+          options: q.options,
+          correct_answer: q.correct_answer,
+          feedback_correct: q.feedback_correct ?? '',
+          feedback_incorrect: q.feedback_incorrect ?? '',
+          feedback_hint: q.feedback_hint ?? null,
+          feedback_per_option: q.feedback_per_option ?? {},
+        }))
+        await supabase.from('questions').insert(psQs)
+      }
+    }
+  }
+
   // 5. Reinforcement questions (si las hay)
   if (j.reinforcement?.questions?.length) {
     await supabase.from('reinforcement_questions').delete().eq('lesson_id', lesson.id)
@@ -218,6 +294,78 @@ async function insertOA(j: OAJson) {
   console.log(`  ✓ ${oa_code} → lesson ${lesson.id} (${j.quiz.questions.length} preguntas)`)
 }
 
+async function insertExpansion(j: any, lesson: { id: string; unit_id: string }, oa_code: string) {
+  // Sub-lecciones
+  const subLessons = j.sub_lessons as any[] | undefined
+  if (subLessons?.length) {
+    await supabase.from('lessons').delete().eq('parent_lesson_id', lesson.id).eq('lesson_kind', 'sub')
+    for (let i = 0; i < subLessons.length; i++) {
+      const sub = subLessons[i]
+      const subPayload: any = {
+        unit_id: lesson.unit_id,
+        parent_lesson_id: lesson.id,
+        lesson_kind: 'sub',
+        title: sub.title?.slice(0, 200) ?? `Sub-tema ${i + 1}`,
+        slug: `${oa_code.toLowerCase()}-sub-${i + 1}-${String(sub.title ?? 'sub').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').slice(0, 60)}`,
+        lesson_type: 'mixto',
+        display_order: 100 + i,
+        content_html: sub.contentHtml,
+        estimated_minutes: sub.estimatedMinutes ?? 12,
+        difficulty_level: sub.difficulty_level ?? 2,
+        is_essential: true,
+      }
+      if (PUBLISH) subPayload.is_published = true
+      await supabase.from('lessons').insert(subPayload)
+    }
+  }
+
+  // Practice sets
+  const practiceSets = j.practice_sets as any[] | undefined
+  if (practiceSets?.length) {
+    await supabase.from('quizzes').delete().eq('lesson_id', lesson.id).neq('quiz_kind', 'formal')
+    for (let i = 0; i < practiceSets.length; i++) {
+      const ps = practiceSets[i]
+      const psPayload: any = {
+        lesson_id: lesson.id,
+        title: ps.title ?? `Práctica ${i + 1}`,
+        quiz_kind: ps.kind ?? 'practice_medium',
+        passing_score: 0,
+        time_limit_seconds: ps.time_limit_seconds ?? 600,
+        max_attempts: 99,
+        shuffle_questions: true,
+        shuffle_options: true,
+        show_correct_after: true,
+        total_questions: ps.questions?.length ?? 0,
+        display_order: 10 + i,
+      }
+      if (PUBLISH) psPayload.is_published = true
+      const { data: psQuiz } = await supabase.from('quizzes').insert(psPayload).select('id').single()
+      if (psQuiz && ps.questions?.length) {
+        const psQs = ps.questions.map((q: any, idx: number) => ({
+          quiz_id: psQuiz.id,
+          question_type: q.question_type ?? 'opcion_multiple',
+          question_text: q.question_text,
+          display_order: idx + 1,
+          points: q.points ?? 1,
+          difficulty_level: q.difficulty_level ?? 1,
+          topic_tag: q.topic_tag ?? null,
+          options: q.options,
+          correct_answer: q.correct_answer,
+          feedback_correct: q.feedback_correct ?? '',
+          feedback_incorrect: q.feedback_incorrect ?? '',
+          feedback_hint: q.feedback_hint ?? null,
+          feedback_per_option: q.feedback_per_option ?? {},
+        }))
+        await supabase.from('questions').insert(psQs)
+      }
+    }
+  }
+
+  const subCount = subLessons?.length ?? 0
+  const psCount = practiceSets?.length ?? 0
+  console.log(`  ✓ ${oa_code} EXPAND → ${subCount} sub-lecciones · ${psCount} sets práctica`)
+}
+
 async function main() {
   const dir = join(process.cwd(), 'generated', GRADE)
   if (!existsSync(dir)) {
@@ -234,8 +382,9 @@ async function main() {
     const oa_code = f.replace('.json', '')
     if (ONLY_OA && oa_code !== ONLY_OA) continue
     const json: OAJson = JSON.parse(readFileSync(join(dir, f), 'utf-8'))
+    const isExpansion = oa_code.startsWith('EXPAND-')
     try {
-      await insertOA(json)
+      await insertOA(json, isExpansion)
       processed++
     } catch (e: any) {
       console.error(`  ❌ ${oa_code}: ${e.message}`)

@@ -34,6 +34,8 @@ import SlidesViewer from './slides-viewer'
 import SectionNav, { type NavSection } from './section-nav'
 import ShareButton from './share-button'
 import { Markdown } from './markdown'
+import SubLessonsGrid, { type SubLesson } from './sub-lessons-grid'
+import PracticeSetsList, { type PracticeSet } from './practice-sets-list'
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
@@ -159,6 +161,8 @@ const SECTION_TONES: Record<
   guide:         { bg: 'bg-[#F5E6D3]', ring: 'ring-[#EAD2B0]', icon: 'text-[#92400E]', eyebrow: 'text-[#92400E]', halo: 'bg-[#92400E]/10' },
   reinforcement: { bg: 'bg-[#FFE0D6]', ring: 'ring-[#FFCAB8]', icon: 'text-[#C2410C]', eyebrow: 'text-[#C2410C]', halo: 'bg-[#C2410C]/10' },
   challenge:     { bg: 'bg-[#D1FAE5]', ring: 'ring-[#A7F3D0]', icon: 'text-[#047857]', eyebrow: 'text-[#047857]', halo: 'bg-[#047857]/10' },
+  subtemas:      { bg: 'bg-[#D1FAE5]', ring: 'ring-[#A7F3D0]', icon: 'text-[#047857]', eyebrow: 'text-[#047857]', halo: 'bg-[#047857]/10' },
+  practica:      { bg: 'bg-[#FEF3C7]', ring: 'ring-[#FDE68A]', icon: 'text-[#A16207]', eyebrow: 'text-[#A16207]', halo: 'bg-[#A16207]/10' },
   default:       { bg: 'bg-[#F7F2E8]', ring: 'ring-[#EFE7D5]', icon: 'text-[#5A4F47]', eyebrow: 'text-[#8A7F75]', halo: 'bg-[#5A4F47]/10' },
 }
 
@@ -202,12 +206,34 @@ export default async function PreviewPage({ params }: PageProps) {
 
   if (!lesson) notFound()
 
-  const { data: quiz } = await supabase
+  // Traer TODOS los quizzes de esta lección (formal + practice_*).
+  const { data: allQuizzes } = await supabase
     .from('quizzes')
-    .select('id, title, passing_score, time_limit_seconds, max_attempts, total_questions')
+    .select('id, title, passing_score, time_limit_seconds, max_attempts, total_questions, quiz_kind, display_order')
     .eq('lesson_id', lesson.id)
-    .maybeSingle()
+    .order('display_order', { ascending: true })
 
+  const quizzesAll = (allQuizzes ?? []) as Array<{
+    id: string
+    title: string | null
+    passing_score: number | null
+    time_limit_seconds: number | null
+    max_attempts: number | null
+    total_questions: number | null
+    quiz_kind: string | null
+    display_order: number | null
+  }>
+
+  // Quiz formal (el que ya se muestra en la sección Quiz). Si no hay quiz_kind,
+  // tomamos el primero (compatibilidad hacia atrás).
+  const quiz =
+    quizzesAll.find((q) => q.quiz_kind === 'formal' || q.quiz_kind == null) ?? null
+  // Sets de práctica adicional: cualquier quiz que NO sea formal.
+  const practiceQuizzes = quizzesAll.filter(
+    (q) => q.quiz_kind != null && q.quiz_kind !== 'formal'
+  )
+
+  // Preguntas del quiz formal.
   let questions: Question[] = []
   if (quiz?.id) {
     const { data: qs } = await supabase
@@ -217,6 +243,66 @@ export default async function PreviewPage({ params }: PageProps) {
       .order('display_order', { ascending: true })
     questions = (qs as unknown as Question[]) ?? []
   }
+
+  // Preguntas de TODOS los practice sets, en un solo round-trip.
+  const practiceIds = practiceQuizzes.map((q) => q.id)
+  let practiceQuestionsByQuiz: Record<string, Question[]> = {}
+  if (practiceIds.length > 0) {
+    const { data: pqs } = await supabase
+      .from('questions')
+      .select('*')
+      .in('quiz_id', practiceIds)
+      .order('display_order', { ascending: true })
+    for (const q of (pqs ?? []) as unknown as (Question & { quiz_id: string })[]) {
+      ;(practiceQuestionsByQuiz[q.quiz_id] ||= []).push(q)
+    }
+  }
+
+  // Sub-lecciones (lessons hijas de la lección actual).
+  const { data: subRaw } = await supabase
+    .from('lessons')
+    .select('id, title, content_html, estimated_minutes, difficulty_level, display_order, lesson_kind, parent_lesson_id')
+    .eq('parent_lesson_id', lesson.id)
+    .eq('lesson_kind', 'sub')
+    .order('display_order', { ascending: true })
+
+  const subLessons: SubLesson[] = ((subRaw ?? []) as Array<{
+    id: string
+    title: string
+    content_html: string | null
+    estimated_minutes: number | null
+    difficulty_level: number | null
+    display_order: number | null
+  }>).map((s) => ({
+    id: s.id,
+    title: s.title,
+    content_html: s.content_html,
+    estimated_minutes: s.estimated_minutes,
+    difficulty_level: s.difficulty_level,
+    display_order: s.display_order,
+  }))
+
+  // Normaliza opciones de una pregunta al formato que espera QuizCarousel.
+  function toCarouselQuestion(q: Question): QuizQuestion {
+    return {
+      ...q,
+      options: Array.isArray(q.options)
+        ? q.options.map((o, i) => renderOption(o, i))
+        : Object.entries((q.options as Record<string, string>) ?? {}).map(([id, text]) => ({
+            id,
+            text,
+          })),
+    } as QuizQuestion
+  }
+
+  const practiceSets: PracticeSet[] = practiceQuizzes.map((pq) => ({
+    id: pq.id,
+    title: pq.title ?? 'Set de práctica',
+    quiz_kind: pq.quiz_kind ?? 'practice',
+    total_questions: pq.total_questions,
+    time_limit_seconds: pq.time_limit_seconds,
+    questions: (practiceQuestionsByQuiz[pq.id] ?? []).map(toCarouselQuestion),
+  }))
 
   const unit = (lesson as any).units
   const course = unit?.courses
@@ -261,7 +347,9 @@ export default async function PreviewPage({ params }: PageProps) {
     { id: 'audio', label: 'Podcast', icon: '🎙️', available: !!audioUrl },
     { id: 'video', label: 'Video', icon: '🎬', available: !!videoUrl },
     { id: 'lesson', label: 'Lección', icon: '📖', available: !!lesson.content_html },
+    { id: 'subtemas', label: 'Sub-temas', icon: '🎯', available: subLessons.length > 0 },
     { id: 'quiz', label: 'Quiz', icon: '📝', available: questions.length > 0 },
+    { id: 'practica', label: 'Práctica extra', icon: '💪', available: practiceSets.length > 0 },
     { id: 'worksheet', label: 'Imprimir', icon: '🖨️', available: questions.length > 0 },
     { id: 'slides', label: 'Slides', icon: '🎴', available: !!slideUrl },
     { id: 'flashcards', label: 'Flashcards', icon: '🧠', available: !!flashcards },
@@ -433,6 +521,21 @@ export default async function PreviewPage({ params }: PageProps) {
               )}
             </SectionShell>
 
+            {/* SUB-LECCIONES */}
+            {subLessons.length > 0 && (
+              <SectionShell
+                id="subtemas"
+                icon={Layers}
+                emoji="🎯"
+                eyebrow="Profundización por sub-temas"
+                title="Sub-temas profundizadores"
+                description="Mini-lecciones para profundizar uno a uno los conceptos clave del OA. Abre la card para leer."
+                tone="subtemas"
+              >
+                <SubLessonsGrid subLessons={subLessons} />
+              </SectionShell>
+            )}
+
             {/* QUIZ */}
             <SectionShell
               id="quiz"
@@ -464,6 +567,21 @@ export default async function PreviewPage({ params }: PageProps) {
                 />
               )}
             </SectionShell>
+
+            {/* PRACTICE SETS ADICIONALES */}
+            {practiceSets.length > 0 && (
+              <SectionShell
+                id="practica"
+                icon={Zap}
+                emoji="💪"
+                eyebrow="Práctica extra · niveles fácil / medio / difícil"
+                title="Sets de práctica adicional"
+                description="Más preguntas de práctica organizadas por dificultad. Ideal para repasar después del quiz formal o para entrenar antes de un examen."
+                tone="practica"
+              >
+                <PracticeSetsList sets={practiceSets} />
+              </SectionShell>
+            )}
 
             {/* PRINT WORKSHEET — solo botones, las hojas son URLs separadas */}
             <SectionShell
