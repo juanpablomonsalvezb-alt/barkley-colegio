@@ -1,0 +1,27 @@
+{
+  "oa": {"oa_code": "EXTRA-MA04-DECIMALES", "oa_description": "Avanzado: introducción números decimales", "subject_name": "Matemática", "eje": "Números y Operaciones"},
+  "lesson": {
+    "title": "Números decimales (introducción)",
+    "estimatedMinutes": 10,
+    "difficulty_level": 3,
+    "contentHtml": "<div class='callout-extra'><strong>📘 Capítulo avanzado.</strong> NO se evalúa en Examen Libre MINEDUC 4° básico.</div><h2>Números decimales: los que tienen coma</h2><p>Los <strong>números decimales</strong> tienen una <strong>coma</strong> que separa la parte entera de la parte decimal. Sirven para representar cantidades que NO son exactas.</p><h3>Ejemplos del día a día</h3><ul><li><strong>$1.250,50</strong> → 1.250 pesos con 50 centavos</li><li><strong>1,75 kg</strong> de pan → 1 kilo y 750 gramos</li><li><strong>4,5 cm</strong> → 4 centímetros y medio</li></ul><h3>Lectura</h3><p>0,5 se lee 'cero coma cinco' o 'cinco décimos'.</p><p>0,25 se lee 'cero coma veinticinco' o 'veinticinco centésimos'.</p><h3>Equivalencia con fracciones</h3><ul><li>0,5 = 1/2 (un medio)</li><li>0,25 = 1/4 (un cuarto)</li><li>0,75 = 3/4 (tres cuartos)</li><li>0,1 = 1/10 (un décimo)</li></ul><h3>Tip</h3><p>Los decimales son útiles cuando algo se divide pero no exacto: 3 niños se reparten $10 → cada uno recibe $3,33...</p>"
+  },
+  "quiz": {
+    "title": "Quiz: Números decimales",
+    "passing_score": 60,
+    "time_limit_seconds": 480,
+    "max_attempts": 3,
+    "questions": [
+      {"question_type":"opcion_multiple","question_text":"¿Cómo se lee 0,5?","topic_tag":"lectura","difficulty_level":1,"points":1,"options":[{"id":"a","text":"Cero coma cinco"},{"id":"b","text":"Cinco"},{"id":"c","text":"Medio cero"},{"id":"d","text":"Cero punto cinco"}],"correct_answer":"a","feedback_correct":"¡Bien!","feedback_incorrect":"Cero coma cinco (o cinco décimos).","feedback_hint":"Cero y luego cinco."},
+      {"question_type":"opcion_multiple","question_text":"0,5 equivale a la fracción:","topic_tag":"equivalencia","difficulty_level":2,"points":1,"options":[{"id":"a","text":"1/4"},{"id":"b","text":"1/2"},{"id":"c","text":"3/4"},{"id":"d","text":"1/5"}],"correct_answer":"b","feedback_correct":"¡Bien! La mitad.","feedback_incorrect":"0,5 = la mitad = 1/2.","feedback_hint":"Mitad."},
+      {"question_type":"opcion_multiple","question_text":"En $1.250,50, los 50 son:","topic_tag":"interpretacion","difficulty_level":2,"points":1,"options":[{"id":"a","text":"Pesos"},{"id":"b","text":"Centavos"},{"id":"c","text":"Mil"},{"id":"d","text":"Cero"}],"correct_answer":"b","feedback_correct":"¡Bien! Después de la coma = centavos.","feedback_incorrect":"50 centavos.","feedback_hint":"Después de coma = centavos."},
+      {"question_type":"opcion_multiple","question_text":"¿Cuál decimal es MAYOR?","topic_tag":"comparacion","difficulty_level":2,"points":1,"options":[{"id":"a","text":"0,5"},{"id":"b","text":"0,25"},{"id":"c","text":"0,75"},{"id":"d","text":"0,1"}],"correct_answer":"c","feedback_correct":"¡Bien! 0,75 = 3/4, el mayor.","feedback_incorrect":"Compara cifras después de coma: 75 > 50 > 25 > 10.","feedback_hint":"Compara cifras."},
+      {"question_type":"verdadero_falso","question_text":"0,25 es lo mismo que 1/4.","topic_tag":"equivalencia","difficulty_level":1,"points":1,"options":[{"id":"v","text":"Verdadero"},{"id":"f","text":"Falso"}],"correct_answer":"v","feedback_correct":"¡Sí!","feedback_incorrect":"Verdadero. 25/100 simplificado = 1/4.","feedback_hint":"Un cuarto."},
+      {"question_type":"opcion_multiple","question_text":"¿Cuánto es 0,5 + 0,5?","topic_tag":"operaciones","difficulty_level":2,"points":1,"options":[{"id":"a","text":"0,10"},{"id":"b","text":"1"},{"id":"c","text":"0,5"},{"id":"d","text":"10"}],"correct_answer":"b","feedback_correct":"¡Bien! Medio + medio = 1 entero.","feedback_incorrect":"0,5 + 0,5 = 1 entero.","feedback_hint":"Mitad + mitad."},
+      {"question_type":"opcion_multiple","question_text":"1,5 kg es lo mismo que:","topic_tag":"interpretacion","difficulty_level":2,"points":1,"options":[{"id":"a","text":"1 kilo 5 gramos"},{"id":"b","text":"1 kilo 500 gramos"},{"id":"c","text":"15 gramos"},{"id":"d","text":"1 kilo 50 gramos"}],"correct_answer":"b","feedback_correct":"¡Bien! 0,5 kg = 500 g.","feedback_incorrect":"0,5 kg = 500 g (medio kilo).","feedback_hint":"Medio kilo = 500 g."},
+      {"question_type":"completar","question_text":"3/4 escrito como decimal es 0,___ (solo 2 dígitos)","topic_tag":"equivalencia","difficulty_level":3,"points":1,"options":[{"id":"blank","text":"___"}],"correct_answer":"75","feedback_correct":"¡Bien! 3/4 = 0,75.","feedback_incorrect":"3/4 = 0,75.","feedback_hint":"75."},
+      {"question_type":"opcion_multiple","question_text":"¿Qué decimal sigue: 0,1; 0,2; 0,3; ___?","topic_tag":"secuencia","difficulty_level":1,"points":1,"options":[{"id":"a","text":"0,4"},{"id":"b","text":"0,33"},{"id":"c","text":"0,5"},{"id":"d","text":"1,0"}],"correct_answer":"a","feedback_correct":"¡Bien! +0,1 cada paso.","feedback_incorrect":"Saltos de 0,1.","feedback_hint":"+0,1."},
+      {"question_type":"verdadero_falso","question_text":"La coma separa la parte entera de la decimal.","topic_tag":"estructura","difficulty_level":1,"points":1,"options":[{"id":"v","text":"Verdadero"},{"id":"f","text":"Falso"}],"correct_answer":"v","feedback_correct":"¡Sí!","feedback_incorrect":"Verdadero.","feedback_hint":"Comma separa."}
+    ]
+  }
+}

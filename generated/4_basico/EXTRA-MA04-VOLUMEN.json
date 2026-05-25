@@ -1,0 +1,27 @@
+{
+  "oa": {"oa_code": "EXTRA-MA04-VOLUMEN", "oa_description": "Avanzado: capacidad y volumen de líquidos", "subject_name": "Matemática", "eje": "Medición"},
+  "lesson": {
+    "title": "Volumen: capacidad de líquidos",
+    "estimatedMinutes": 10,
+    "difficulty_level": 2,
+    "contentHtml": "<div class='callout-extra'><strong>📘 Capítulo avanzado.</strong> Este tema NO se evalúa en Examen Libre MINEDUC 4° básico.</div><h2>Volumen y capacidad</h2><p>El <strong>volumen</strong> es el espacio que ocupa un cuerpo. La <strong>capacidad</strong> es cuánto líquido cabe dentro de un recipiente.</p><h3>Unidades de capacidad</h3><ul><li><strong>Mililitro (mL)</strong>: muy poquito (1 mL ≈ 20 gotas)</li><li><strong>Centilitro (cL)</strong>: 1 cL = 10 mL</li><li><strong>Litro (L)</strong>: 1 L = 1.000 mL</li></ul><h3>Ejemplos cotidianos chilenos</h3><ul><li>Una botella de bebida Coca-Cola personal = 350 mL</li><li>Una botella grande de agua = 1.500 mL = 1,5 L</li><li>Un envase de leche = 1 L = 1.000 mL</li><li>Una cuchara sopera = ~15 mL</li></ul><h3>Comparar capacidad</h3><p>Para comparar 2 recipientes de distinta forma, vacías ambos en uno con marcas (jarro medidor) y comparas hasta dónde llega.</p>"
+  },
+  "quiz": {
+    "title": "Quiz: Volumen y capacidad",
+    "passing_score": 60,
+    "time_limit_seconds": 480,
+    "max_attempts": 3,
+    "questions": [
+      {"question_type":"opcion_multiple","question_text":"¿Cuántos mL tiene 1 L?","topic_tag":"conversion","difficulty_level":1,"points":1,"options":[{"id":"a","text":"10"},{"id":"b","text":"100"},{"id":"c","text":"1.000"},{"id":"d","text":"10.000"}],"correct_answer":"c","feedback_correct":"¡Bien! 1.000 mL.","feedback_incorrect":"1 L = 1.000 mL.","feedback_hint":"Mil."},
+      {"question_type":"opcion_multiple","question_text":"Una botella de bebida personal tiene aprox:","topic_tag":"ejemplos","difficulty_level":1,"points":1,"options":[{"id":"a","text":"15 mL"},{"id":"b","text":"350 mL"},{"id":"c","text":"5 L"},{"id":"d","text":"15 L"}],"correct_answer":"b","feedback_correct":"¡Bien!","feedback_incorrect":"Aprox 350 mL.","feedback_hint":"Más que vaso."},
+      {"question_type":"opcion_multiple","question_text":"Una caja de leche entera tiene:","topic_tag":"ejemplos","difficulty_level":1,"points":1,"options":[{"id":"a","text":"100 mL"},{"id":"b","text":"500 mL"},{"id":"c","text":"1 L"},{"id":"d","text":"5 L"}],"correct_answer":"c","feedback_correct":"¡Bien!","feedback_incorrect":"Caja leche = 1 L.","feedback_hint":"1 litro."},
+      {"question_type":"opcion_multiple","question_text":"¿Cuál es más, 500 mL o 1 L?","topic_tag":"comparacion","difficulty_level":1,"points":1,"options":[{"id":"a","text":"500 mL"},{"id":"b","text":"1 L"},{"id":"c","text":"Son iguales"},{"id":"d","text":"No se puede saber"}],"correct_answer":"b","feedback_correct":"¡Bien! 1 L = 1.000 mL > 500 mL.","feedback_incorrect":"1 L = 1.000 mL, más que 500 mL.","feedback_hint":"Convierte L a mL."},
+      {"question_type":"verdadero_falso","question_text":"1.500 mL es lo mismo que 1,5 L.","topic_tag":"conversion","difficulty_level":2,"points":1,"options":[{"id":"v","text":"Verdadero"},{"id":"f","text":"Falso"}],"correct_answer":"v","feedback_correct":"¡Sí!","feedback_incorrect":"Verdadero. 1.000 mL + 500 mL = 1 L + 0,5 L = 1,5 L.","feedback_hint":"1.000 = 1 L."},
+      {"question_type":"opcion_multiple","question_text":"Si tienes 2 botellas de 500 mL cada una, ¿cuánto líquido en total?","topic_tag":"calculo","difficulty_level":2,"points":1,"options":[{"id":"a","text":"500 mL"},{"id":"b","text":"1.000 mL"},{"id":"c","text":"2 L"},{"id":"d","text":"100 mL"}],"correct_answer":"b","feedback_correct":"¡Bien! 500+500=1.000 mL = 1 L.","feedback_incorrect":"500 + 500 = 1.000 mL.","feedback_hint":"Suma."},
+      {"question_type":"opcion_multiple","question_text":"¿Qué instrumento sirve para medir capacidad con precisión?","topic_tag":"medicion","difficulty_level":1,"points":1,"options":[{"id":"a","text":"Regla"},{"id":"b","text":"Jarro medidor"},{"id":"c","text":"Compás"},{"id":"d","text":"Transportador"}],"correct_answer":"b","feedback_correct":"¡Bien!","feedback_incorrect":"Jarro medidor con marcas.","feedback_hint":"Tiene marcas mL."},
+      {"question_type":"completar","question_text":"5 L = ___ mL (solo número)","topic_tag":"conversion","difficulty_level":2,"points":1,"options":[{"id":"blank","text":"___"}],"correct_answer":"5000","feedback_correct":"¡Bien!","feedback_incorrect":"5 × 1.000 = 5.000 mL.","feedback_hint":"× 1.000."},
+      {"question_type":"opcion_multiple","question_text":"¿Cuántas botellas de 250 mL se necesitan para llenar 1 L?","topic_tag":"calculo","difficulty_level":3,"points":1,"options":[{"id":"a","text":"2"},{"id":"b","text":"3"},{"id":"c","text":"4"},{"id":"d","text":"5"}],"correct_answer":"c","feedback_correct":"¡Bien! 1.000 ÷ 250 = 4.","feedback_incorrect":"1.000 ÷ 250 = 4 botellas.","feedback_hint":"Divide."},
+      {"question_type":"verdadero_falso","question_text":"Una cuchara sopera contiene aprox 15 mL.","topic_tag":"ejemplos","difficulty_level":1,"points":1,"options":[{"id":"v","text":"Verdadero"},{"id":"f","text":"Falso"}],"correct_answer":"v","feedback_correct":"¡Sí!","feedback_incorrect":"Verdadero, ~15 mL.","feedback_hint":"15."}
+    ]
+  }
+}

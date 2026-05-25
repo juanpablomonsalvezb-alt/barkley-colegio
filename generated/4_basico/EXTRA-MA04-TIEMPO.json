@@ -1,0 +1,27 @@
+{
+  "oa": {"oa_code": "EXTRA-MA04-TIEMPO", "oa_description": "Avanzado: medir tiempo con minutos, horas, días", "subject_name": "Matemática", "eje": "Medición"},
+  "lesson": {
+    "title": "Tiempo: medir minutos, horas, días",
+    "estimatedMinutes": 10,
+    "difficulty_level": 2,
+    "contentHtml": "<div class='callout-extra'><strong>📘 Capítulo avanzado.</strong> Este tema NO se evalúa en Examen Libre MINEDUC 4° básico, pero está en el libro escolar oficial.</div><h2>Tiempo: cómo medirlo</h2><p>El tiempo se mide en distintas unidades: <strong>segundos, minutos, horas, días, semanas, meses y años</strong>.</p><h3>Conversiones básicas</h3><ul><li>1 minuto = 60 segundos</li><li>1 hora = 60 minutos</li><li>1 día = 24 horas</li><li>1 semana = 7 días</li><li>1 año = 12 meses ≈ 365 días</li></ul><h3>Ejemplo chileno</h3><p>Si una micro tarda 45 minutos en recorrer toda la línea, en 1 hora alcanza a hacer 1 viaje y aún le sobran 15 minutos para empezar otro.</p><h3>Leer el reloj</h3><p>Un reloj analógico tiene 2 manecillas: la corta marca la HORA, la larga marca los MINUTOS. Cuando la larga apunta al 12, son en punto. Cuando apunta al 6, son y media.</p>"
+  },
+  "quiz": {
+    "title": "Quiz: Tiempo",
+    "passing_score": 60,
+    "time_limit_seconds": 480,
+    "max_attempts": 3,
+    "questions": [
+      {"question_type":"opcion_multiple","question_text":"¿Cuántos minutos tiene 1 hora?","topic_tag":"conversion","difficulty_level":1,"points":1,"options":[{"id":"a","text":"30"},{"id":"b","text":"60"},{"id":"c","text":"100"},{"id":"d","text":"24"}],"correct_answer":"b","feedback_correct":"¡Bien! 60 minutos.","feedback_incorrect":"1 hora = 60 minutos.","feedback_hint":"Más que media hora."},
+      {"question_type":"opcion_multiple","question_text":"¿Cuántas horas tiene 1 día?","topic_tag":"conversion","difficulty_level":1,"points":1,"options":[{"id":"a","text":"12"},{"id":"b","text":"24"},{"id":"c","text":"30"},{"id":"d","text":"60"}],"correct_answer":"b","feedback_correct":"¡Bien! 24 horas.","feedback_incorrect":"1 día = 24 horas.","feedback_hint":"Día + noche."},
+      {"question_type":"opcion_multiple","question_text":"¿Cuántos días tiene 1 semana?","topic_tag":"conversion","difficulty_level":1,"points":1,"options":[{"id":"a","text":"7"},{"id":"b","text":"5"},{"id":"c","text":"30"},{"id":"d","text":"12"}],"correct_answer":"a","feedback_correct":"¡Bien! 7 días.","feedback_incorrect":"Lunes a domingo = 7 días.","feedback_hint":"Lunes, martes..."},
+      {"question_type":"opcion_multiple","question_text":"Si una clase dura 90 minutos, ¿cuántas horas son?","topic_tag":"calculo","difficulty_level":2,"points":1,"options":[{"id":"a","text":"1 hora"},{"id":"b","text":"1 hora y media"},{"id":"c","text":"2 horas"},{"id":"d","text":"1 hora 30"}],"correct_answer":"b","feedback_correct":"¡Bien! 60+30=90, es 1 hora y media.","feedback_incorrect":"60 min = 1 hora. Los 30 restantes son media hora.","feedback_hint":"60+30."},
+      {"question_type":"opcion_multiple","question_text":"¿Qué manecilla del reloj marca las horas?","topic_tag":"reloj","difficulty_level":1,"points":1,"options":[{"id":"a","text":"La larga"},{"id":"b","text":"La corta"},{"id":"c","text":"La segundera"},{"id":"d","text":"Ninguna"}],"correct_answer":"b","feedback_correct":"¡Bien! La corta.","feedback_incorrect":"La corta marca la hora.","feedback_hint":"La corta."},
+      {"question_type":"verdadero_falso","question_text":"1 año tiene 365 días aproximadamente.","topic_tag":"conversion","difficulty_level":1,"points":1,"options":[{"id":"v","text":"Verdadero"},{"id":"f","text":"Falso"}],"correct_answer":"v","feedback_correct":"¡Sí! 365 días (o 366 en bisiesto).","feedback_incorrect":"Verdadero.","feedback_hint":"Casi 366."},
+      {"question_type":"opcion_multiple","question_text":"¿Cuántos minutos hay en 2 horas?","topic_tag":"calculo","difficulty_level":2,"points":1,"options":[{"id":"a","text":"60"},{"id":"b","text":"100"},{"id":"c","text":"120"},{"id":"d","text":"200"}],"correct_answer":"c","feedback_correct":"¡Bien! 60 × 2 = 120.","feedback_incorrect":"2 × 60 = 120.","feedback_hint":"Multiplica."},
+      {"question_type":"completar","question_text":"3 minutos = ___ segundos (solo el número)","topic_tag":"conversion","difficulty_level":2,"points":1,"options":[{"id":"blank","text":"___"}],"correct_answer":"180","feedback_correct":"¡Bien! 60 × 3 = 180.","feedback_incorrect":"Cada minuto tiene 60 segundos. 60 × 3 = 180.","feedback_hint":"60 × 3."},
+      {"question_type":"opcion_multiple","question_text":"Una película dura 2 horas y 15 minutos. ¿Cuántos minutos en total?","topic_tag":"calculo","difficulty_level":3,"points":1,"options":[{"id":"a","text":"135"},{"id":"b","text":"215"},{"id":"c","text":"230"},{"id":"d","text":"120"}],"correct_answer":"a","feedback_correct":"¡Bien! 120 + 15 = 135.","feedback_incorrect":"2h = 120 min. 120 + 15 = 135.","feedback_hint":"120 + 15."},
+      {"question_type":"verdadero_falso","question_text":"Un año tiene 12 meses.","topic_tag":"conversion","difficulty_level":1,"points":1,"options":[{"id":"v","text":"Verdadero"},{"id":"f","text":"Falso"}],"correct_answer":"v","feedback_correct":"¡Sí!","feedback_incorrect":"Verdadero. Enero a diciembre.","feedback_hint":"Enero, febrero..."}
+    ]
+  }
+}

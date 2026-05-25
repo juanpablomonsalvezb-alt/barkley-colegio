@@ -1,0 +1,27 @@
+{
+  "oa": {"oa_code": "EXTRA-MA04-ANGULOS", "oa_description": "Avanzado: ángulos rectos, agudos y obtusos", "subject_name": "Matemática", "eje": "Geometría"},
+  "lesson": {
+    "title": "Ángulos: tipos y medición",
+    "estimatedMinutes": 10,
+    "difficulty_level": 2,
+    "contentHtml": "<div class='callout-extra'><strong>📘 Capítulo avanzado.</strong> Este tema NO se evalúa en Examen Libre MINEDUC 4° básico, pero está en el libro escolar.</div><h2>Ángulos: cuando dos líneas se juntan</h2><p>Un <strong>ángulo</strong> se forma cuando dos líneas (lados) se juntan en un punto (vértice). Se mide en <strong>grados (°)</strong>.</p><h3>Tipos de ángulos básicos</h3><ul><li><strong>Recto</strong>: 90° (como la esquina de un libro)</li><li><strong>Agudo</strong>: menos de 90° (más cerrado)</li><li><strong>Obtuso</strong>: entre 90° y 180° (más abierto que el recto)</li><li><strong>Llano</strong>: 180° (una línea recta)</li></ul><h3>Cómo medir</h3><p>Usamos un <strong>transportador</strong> (semicírculo con grados marcados). Pon el centro en el vértice y mira dónde queda el otro lado.</p><h3>Ejemplo</h3><p>Las esquinas de tu mesa son ángulos rectos (90°). El ángulo entre las manecillas del reloj a las 3:00 es de 90°.</p>"
+  },
+  "quiz": {
+    "title": "Quiz: Ángulos",
+    "passing_score": 60,
+    "time_limit_seconds": 480,
+    "max_attempts": 3,
+    "questions": [
+      {"question_type":"opcion_multiple","question_text":"¿Cuántos grados tiene un ángulo recto?","topic_tag":"tipos","difficulty_level":1,"points":1,"options":[{"id":"a","text":"45°"},{"id":"b","text":"90°"},{"id":"c","text":"180°"},{"id":"d","text":"360°"}],"correct_answer":"b","feedback_correct":"¡Bien!","feedback_incorrect":"Recto = 90°.","feedback_hint":"Esquina de hoja."},
+      {"question_type":"opcion_multiple","question_text":"Un ángulo de 45° es:","topic_tag":"tipos","difficulty_level":1,"points":1,"options":[{"id":"a","text":"Agudo"},{"id":"b","text":"Recto"},{"id":"c","text":"Obtuso"},{"id":"d","text":"Llano"}],"correct_answer":"a","feedback_correct":"¡Bien! Menos de 90° = agudo.","feedback_incorrect":"Menos de 90° = agudo.","feedback_hint":"Cerrado."},
+      {"question_type":"opcion_multiple","question_text":"Un ángulo de 120° es:","topic_tag":"tipos","difficulty_level":1,"points":1,"options":[{"id":"a","text":"Agudo"},{"id":"b","text":"Recto"},{"id":"c","text":"Obtuso"},{"id":"d","text":"Llano"}],"correct_answer":"c","feedback_correct":"¡Bien! Entre 90° y 180° = obtuso.","feedback_incorrect":"120° está entre 90 y 180 → obtuso.","feedback_hint":"Abierto."},
+      {"question_type":"opcion_multiple","question_text":"¿Con qué instrumento se mide un ángulo?","topic_tag":"medicion","difficulty_level":1,"points":1,"options":[{"id":"a","text":"Regla"},{"id":"b","text":"Transportador"},{"id":"c","text":"Compás"},{"id":"d","text":"Escuadra"}],"correct_answer":"b","feedback_correct":"¡Bien!","feedback_incorrect":"Transportador (semicírculo con grados).","feedback_hint":"Semicírculo."},
+      {"question_type":"verdadero_falso","question_text":"El ángulo llano mide 180°.","topic_tag":"tipos","difficulty_level":1,"points":1,"options":[{"id":"v","text":"Verdadero"},{"id":"f","text":"Falso"}],"correct_answer":"v","feedback_correct":"¡Sí!","feedback_incorrect":"Verdadero. Llano = línea recta = 180°.","feedback_hint":"Línea recta."},
+      {"question_type":"opcion_multiple","question_text":"Las manecillas del reloj a las 3:00 forman un ángulo:","topic_tag":"aplicacion","difficulty_level":2,"points":1,"options":[{"id":"a","text":"Agudo"},{"id":"b","text":"Recto"},{"id":"c","text":"Obtuso"},{"id":"d","text":"Llano"}],"correct_answer":"b","feedback_correct":"¡Bien! 90° = recto.","feedback_incorrect":"A las 3:00 las manecillas forman 90°.","feedback_hint":"90°."},
+      {"question_type":"opcion_multiple","question_text":"¿Cuál NO es un ángulo recto?","topic_tag":"tipos","difficulty_level":2,"points":1,"options":[{"id":"a","text":"Esquina libro"},{"id":"b","text":"Esquina mesa"},{"id":"c","text":"Punta de un triángulo equilátero"},{"id":"d","text":"Esquina ventana"}],"correct_answer":"c","feedback_correct":"¡Bien! Triángulo equilátero tiene ángulos de 60° (agudos).","feedback_incorrect":"Triángulo equilátero = 60° cada ángulo, son agudos.","feedback_hint":"60°."},
+      {"question_type":"completar","question_text":"Un ángulo de 90° se llama ___ (1 palabra)","topic_tag":"tipos","difficulty_level":1,"points":1,"options":[{"id":"blank","text":"___"}],"correct_answer":"recto","feedback_correct":"¡Bien!","feedback_incorrect":"Recto.","feedback_hint":"Empieza con 'r'."},
+      {"question_type":"opcion_multiple","question_text":"Un ángulo agudo es ___ a 90°","topic_tag":"tipos","difficulty_level":1,"points":1,"options":[{"id":"a","text":"Mayor"},{"id":"b","text":"Igual"},{"id":"c","text":"Menor"},{"id":"d","text":"Doble"}],"correct_answer":"c","feedback_correct":"¡Bien! Menor.","feedback_incorrect":"Menor a 90°.","feedback_hint":"Más cerrado."},
+      {"question_type":"opcion_multiple","question_text":"¿Cuántos grados forma una vuelta completa?","topic_tag":"calculo","difficulty_level":2,"points":1,"options":[{"id":"a","text":"180°"},{"id":"b","text":"270°"},{"id":"c","text":"360°"},{"id":"d","text":"90°"}],"correct_answer":"c","feedback_correct":"¡Bien!","feedback_incorrect":"Vuelta completa = 360°.","feedback_hint":"Doble de 180."}
+    ]
+  }
+}
