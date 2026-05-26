@@ -62,10 +62,17 @@ export type PreviewCourseDetail = PreviewCourse & {
 
 /** Extrae el OA code (ej. MA04-OA01) desde el slug de lección. */
 export function extractOaCode(slug: string): string {
-  // slugs vienen como "ma04-oa01-representar-y-describir-numeros..."
-  // o "ma04-oa14-sub-1-resolver-..." (sub-lecciones).
-  const m = slug.match(/^([a-z]{2}\d{2}-oa\d{1,3})/i)
-  return (m?.[1] ?? slug.split('-').slice(0, 2).join('-')).toUpperCase()
+  // Caso 1: slug estándar "ma04-oa01-..." o "ma04-oa14-sub-1-...".
+  const std = slug.match(/^([a-z]{2}\d{2}-oa\d{1,3})/i)
+  if (std) return std[1].toUpperCase()
+  // Caso 2: lecciones lite/extra estilo "extra-ma04-tiempo": usar los
+  // primeros tres segmentos para que cada lección tenga URL única.
+  const parts = slug.split('-')
+  if (parts[0] === 'extra' && parts.length >= 3) {
+    return parts.slice(0, 3).join('-').toUpperCase()
+  }
+  // Fallback: dos primeros segmentos.
+  return parts.slice(0, 2).join('-').toUpperCase()
 }
 
 /** URL canónica de una lección dentro del preview. */
