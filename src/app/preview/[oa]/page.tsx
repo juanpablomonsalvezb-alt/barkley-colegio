@@ -198,11 +198,11 @@ export default async function PreviewPage({ params }: PageProps) {
     .select(
       `id, title, content_html, estimated_minutes, difficulty_level,
        reinforcement_content_html, challenge_content_html, challenge_project_description,
+       audio_overview_url, video_overview_url, slide_deck_url,
+       flashcards_json, mind_map_json, study_guide_md,
+       audio_overview_status, audio_overview_generated_at,
        unit_id,
        units(id, title, slug,
-             audio_overview_url, audio_overview_status, audio_overview_duration_seconds,
-             video_overview_url, slide_deck_url, infographic_url,
-             mind_map_json, flashcards_json, study_guide_md,
              courses(id, title, slug, grade_level, subjects(name, color, icon_url)))`
     )
     .ilike('slug', `${oaCode.toLowerCase()}%`)
@@ -313,11 +313,13 @@ export default async function PreviewPage({ params }: PageProps) {
   const course = unit?.courses
   const subject = course?.subjects
 
-  const audioUrl: string | null = unit?.audio_overview_url ?? null
-  const audioDuration: number | null = unit?.audio_overview_duration_seconds ?? null
-  const videoUrl: string | null = unit?.video_overview_url ?? null
-  const slideUrl: string | null = unit?.slide_deck_url ?? null
-  const infographicUrl: string | null = unit?.infographic_url ?? null
+  // Artifacts ahora viven en la LECCIÓN, no en la unidad (cada OA su propio podcast/video/etc).
+  const L = lesson as any
+  const audioUrl: string | null = L.audio_overview_url ?? null
+  const audioDuration: number | null = null
+  const videoUrl: string | null = L.video_overview_url ?? null
+  const slideUrl: string | null = L.slide_deck_url ?? null
+  const infographicUrl: string | null = null
   // ---- Flashcards: NotebookLM devuelve {cards: [{front, back}]} pero a veces
   //      llega como array directo o {flashcards: [...]}. Normalizamos.
   function normalizeFlashcards(raw: unknown): Flashcard[] | null {
@@ -342,8 +344,8 @@ export default async function PreviewPage({ params }: PageProps) {
       .filter(Boolean) as Flashcard[]
     return cleaned.length ? cleaned : null
   }
-  const flashcards: Flashcard[] | null = normalizeFlashcards(unit?.flashcards_json)
-  const studyGuide: string | null = unit?.study_guide_md ?? null
+  const flashcards: Flashcard[] | null = normalizeFlashcards(L.flashcards_json)
+  const studyGuide: string | null = L.study_guide_md ?? null
 
   const passingScore = quiz?.passing_score ?? 60
   const timeMin = quiz?.time_limit_seconds ? Math.ceil(quiz.time_limit_seconds / 60) : null
