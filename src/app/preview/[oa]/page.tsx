@@ -199,11 +199,11 @@ export default async function PreviewPage({ params }: PageProps) {
       `id, title, content_html, estimated_minutes, difficulty_level,
        reinforcement_content_html, challenge_content_html, challenge_project_description,
        unit_id,
-       units(id, title,
+       units(id, title, slug,
              audio_overview_url, audio_overview_status, audio_overview_duration_seconds,
              video_overview_url, slide_deck_url, infographic_url,
              mind_map_json, flashcards_json, study_guide_md,
-             courses(id, title, grade_level, subjects(name, color, icon_url)))`
+             courses(id, title, slug, grade_level, subjects(name, color, icon_url)))`
     )
     .ilike('slug', `${oaCode.toLowerCase()}%`)
     .limit(1)
