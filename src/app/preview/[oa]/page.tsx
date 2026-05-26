@@ -36,6 +36,11 @@ import ShareButton from './share-button'
 import { Markdown } from './markdown'
 import SubLessonsGrid, { type SubLesson } from './sub-lessons-grid'
 import PracticeSetsList, { type PracticeSet } from './practice-sets-list'
+import TopBar from '../top-bar'
+import LessonNav from './lesson-nav'
+import UnitLessonsRail from './unit-lessons-rail'
+import { courseHref, getLessonNeighbors } from '@/lib/preview'
+import Link from 'next/link'
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
@@ -343,6 +348,9 @@ export default async function PreviewPage({ params }: PageProps) {
   const passingScore = quiz?.passing_score ?? 60
   const timeMin = quiz?.time_limit_seconds ? Math.ceil(quiz.time_limit_seconds / 60) : null
 
+  // Navegación global del curso: vecinos prev/next + otras lecciones de la unidad.
+  const neighbors = await getLessonNeighbors(oaCode)
+
   const sections: NavSection[] = [
     { id: 'audio', label: 'Podcast', icon: '🎙️', available: !!audioUrl },
     { id: 'video', label: 'Video', icon: '🎬', available: !!videoUrl },
@@ -362,6 +370,11 @@ export default async function PreviewPage({ params }: PageProps) {
 
   return (
     <div className="min-h-screen bg-[#FDFBF7] antialiased">
+      <TopBar
+        course={course ? { title: course.title, slug: course.slug } : null}
+        lessonTitle={lesson.title}
+        rightSlot={<ShareButton />}
+      />
       {/* ============ HERO ============ */}
       <header className="relative overflow-hidden border-b border-[#EFE7D5] bg-paper-grain bg-[#FDFBF7]">
         {/* Líneas rayadas tipo cuaderno escolar (sutil) */}
@@ -387,24 +400,31 @@ export default async function PreviewPage({ params }: PageProps) {
         />
 
         <div className="relative mx-auto max-w-6xl px-4 md:px-8 pt-10 pb-14 md:pt-16 md:pb-20">
-          {/* Top bar */}
+          {/* Breadcrumb clickable */}
           <div className="flex flex-wrap items-center gap-2.5 text-[13px]">
-            <div className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1 font-semibold text-[#C2410C] ring-1 ring-[#FFE4D1] shadow-sm">
+            <Link
+              href="/preview"
+              className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1 font-semibold text-[#C2410C] shadow-sm ring-1 ring-[#FFE4D1] transition hover:bg-[#FFE4D1]/60"
+            >
               Barkley
-            </div>
+            </Link>
             {subject && (
-              <span
-                className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[12px] font-semibold ring-1 ring-inset ${subjBadge.bg} ${subjBadge.text} ${subjBadge.ring}`}
+              <Link
+                href="/preview"
+                className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[12px] font-semibold ring-1 ring-inset transition hover:opacity-90 ${subjBadge.bg} ${subjBadge.text} ${subjBadge.ring}`}
               >
                 {subject.name}
-              </span>
+              </Link>
             )}
             {course && (
-              <span className="text-[13px] text-[#5A4F47]">
+              <Link
+                href={courseHref(course.slug)}
+                className="text-[13px] font-medium text-[#5A4F47] underline decoration-[#D4C7B5] underline-offset-4 transition hover:text-[#C2410C] hover:decoration-[#F97316]"
+              >
                 {course.title}
-              </span>
+              </Link>
             )}
-            <span className="ml-auto inline-flex items-center rounded-full bg-white px-2.5 py-1 font-mono text-[11px] tracking-wider text-[#5A4F47] ring-1 ring-[#EFE7D5] shadow-sm">
+            <span className="ml-auto inline-flex items-center rounded-full bg-white px-2.5 py-1 font-mono text-[11px] tracking-wider text-[#5A4F47] shadow-sm ring-1 ring-[#EFE7D5]">
               {oaCode.toUpperCase()}
             </span>
           </div>
@@ -464,6 +484,13 @@ export default async function PreviewPage({ params }: PageProps) {
         <div className="grid grid-cols-1 lg:grid-cols-[220px_1fr] gap-8 md:gap-12">
           {/* Sidebar */}
           <aside>
+            {neighbors.unit && neighbors.current && (
+              <UnitLessonsRail
+                currentId={neighbors.current.id}
+                unitTitle={neighbors.unit.title}
+                lessons={neighbors.unitLessons}
+              />
+            )}
             <SectionNav sections={sections} />
           </aside>
 
@@ -724,6 +751,21 @@ export default async function PreviewPage({ params }: PageProps) {
                   </div>
                 )}
               </SectionShell>
+            )}
+
+            {/* PREV / NEXT */}
+            <LessonNav prev={neighbors.prev} next={neighbors.next} />
+
+            {/* Volver al curso */}
+            {course && (
+              <div className="mt-8 flex justify-center print:hidden">
+                <Link
+                  href={courseHref(course.slug)}
+                  className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-[13px] font-semibold text-[#5A4F47] shadow-sm ring-1 ring-[#EFE7D5] transition hover:bg-[#F7F2E8] hover:text-[#C2410C]"
+                >
+                  ← Volver a {course.title}
+                </Link>
+              </div>
             )}
           </main>
         </div>
